@@ -1,0 +1,9 @@
+---
+# defaults file for supervisor
+supervisor_config_dir: /etc/supervisor
+supervisor_log_dir: /var/log/supervisor
+supervisor_log_file: supervisord.log
+supervisor_pidfile: /var/run/supervisord.pid
+supervisor_service_name: supervisord
+supervisor_socket_file: /var/run/supervisor.sock
+supervisor_socket_file_mode: 0700

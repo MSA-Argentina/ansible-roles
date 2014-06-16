@@ -1,0 +1,18 @@
+---
+# General
+bootstrap_install_dev_packages: true
+bootstrap_local_sources: false
+bootstrap_locale: en_US.UTF-8
+bootstrap_log_dir: /var/log
+bootstrap_timezone: "America/Argentina/Buenos_Aires"
+bootstrap_upgrade_system: false
+
+# Python install
+bootstrap_python_install: true
+bootstrap_virtualenv_workon_home: Envs
+
+# Security
+bootstrap_ufw_allowed_ports:
+  - 80
+bootstrap_ufw_state: enabled
+bootstrap_ubuntu_unattended_upgrades: true

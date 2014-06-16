@@ -1,0 +1,10 @@
+---
+# defaults file for uwsgi
+
+uwsgi_apps_available_dir: /etc/uwsgi/apps_available
+uwsgi_apps_enabled_dir: /etc/uwsgi/apps_enabled
+uwsgi_config_directory: /etc/uwsgi
+uwsgi_config_file: uwsgi.ini
+uwsgi_executable: /usr/local/bin/uwsgi
+uwsgi_log_directory: /var/log/uwsgi
+uwsgi_service_name: uwsgi

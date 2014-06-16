@@ -1,0 +1,50 @@
+---
+  - name: oracle | Installing required apt packages
+    apt:
+      pkg={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - libaio1
+      - libffi-dev
+      
+  - name: oracle | Download IC debs
+    command:
+      wget -nc {{oracle_ic_url}}{{item}}
+      chdir=/tmp
+    with_items:
+      - "{{oracle_ic_basic}}"
+      - "{{oracle_ic_sqlplus}}"
+      - "{{oracle_ic_devel}}"
+
+  - name: oracle | Installing Instant Client
+    command:
+      dpkg --skip-same-version -i {{item}}
+      chdir=/tmp
+    with_items:
+      - "{{oracle_ic_basic}}"
+      - "{{oracle_ic_sqlplus}}"
+      - "{{oracle_ic_devel}}"
+
+  - name: oracle | Adding Oracle libs to ld.so.conf.d
+    lineinfile:
+      dest=/etc/ld.so.conf.d/oracle.conf
+      line="/usr/lib/oracle/12.1/client64/lib"
+      state=present
+      create=yes
+
+  - name: oracle | Adding ORACLE_HOME to system wide profile
+    lineinfile:
+      dest=/etc/profile
+      line="export ORACLE_HOME={{oracle_home}}"
+      state=present
+
+  - name: oracle | Adding LD_LIBRARY_PATH to system wide profile
+    lineinfile:
+      dest=/etc/profile
+      line="export LD_LIBRARY_PATH={{oracle_lib_path}}"
+      state=present
+
+  - name: oracle | Running ldconfig
+    command:
+      ldconfig

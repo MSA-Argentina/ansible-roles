@@ -1,0 +1,11 @@
+---
+# defaults file for nginx
+nginx_access_log: /var/log/nginx/access.log
+nginx_error_log: /var/log/nginx/error.log
+nginx_enable_monit: false
+nginx_install_from_ppa: true
+nginx_pid_file: /var/run/nginx.pid
+nginx_ppa: ppa:nginx/stable
+nginx_user: www-data
+nginx_worker_connections: 768
+nginx_worker_processes: 2

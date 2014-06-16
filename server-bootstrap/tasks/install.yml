@@ -1,0 +1,39 @@
+---
+  - name: bootstrap | Cambiando sources al mirror local de Ubuntu
+    script: configure_sources.sh
+    when: bootstrap_local_sources
+
+  - name: bootstrap | Upgrade system
+    apt:
+      upgrade=dist
+    when: bootstrap_upgrade_system
+
+  - name: bootstrap | Installing essential packages to build and run software
+    apt:
+      pkg={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - build-essential
+      - bzip2
+      - curl
+      - libssl-dev
+      - ntp
+      - openssl
+      - python-software-properties
+      - ssl-cert
+      - wget
+
+  - name: bootstrap | Installing useful packages for development in the server
+    apt:
+      pkg={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - git
+      - htop
+      - mercurial
+      - silversearcher-ag
+      - vim
+    when: bootstrap_install_dev_packages
+

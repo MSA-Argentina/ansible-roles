@@ -1,0 +1,11 @@
+---
+# defaults file for apache
+
+apache_install_mod-wsgi: yes
+apache_mpm: apache2-mpm-prefork
+apache_pid_file: /var/run/apache2/apache2.pid
+apache_enable_monit: false
+apache_modules:
+  - rewrite
+  - ssl
+  - wsgi

@@ -1,0 +1,7 @@
+---
+# handlers file for supervisor
+
+  - name: restart supervisor
+    service:
+      name: {{supervisor_service_name}}
+      state: restarted

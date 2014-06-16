@@ -1,0 +1,30 @@
+---
+  - name: supervisor | Installing required apt_packages
+    apt:
+      pkg=python-pip
+      state=latest
+      update_cache=yes
+
+  - name: supervisor | Installing supervisor with pip
+    pip:
+      name=supervisor
+
+  - name: supervisor | Copying Upstart script for supervisor
+    template:
+      src=supervisord_init.conf
+      dest=/etc/init/supervisord.conf
+      owner=root
+      mode=644
+      backup=yes
+
+  - name: supervisor | Creating directories
+    file:
+      path=/etc/supervisor/conf.d
+      owner=root
+      state=directory
+
+  - name: supervisor | Copying base configuration
+    template:
+      src=supervisord_base.conf
+      dest={{supervisor_dir}}/supervisord.conf
+

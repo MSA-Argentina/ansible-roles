@@ -1,0 +1,31 @@
+---
+  - include: install.yml
+  - include: python-install.yml
+    when: bootstrap_python_install
+  - include: security.yml
+
+  - name: bootstrap | Setting locale
+    locale_gen:
+      name={{default_locale}}
+      state=present
+
+  - name: bootstrap | Setting timezone
+    template:
+      dest=/etc/timezone
+      src=timezone
+      owner=root
+      group=root
+      mode=644
+      backup=yes
+
+  - name: bootstrap | Reconfiguring tzdata
+    command:
+      dpkg-reconfigure --frontend noninteractive tzdata
+
+  - name: bootstrap | Copying our public key to the server
+    authorized_key:
+      user="{{ remote_user_name }}"
+      key="{{ item }}"
+    with_file:
+      - "{{ local_home }}/.ssh/id_rsa.pub"
+

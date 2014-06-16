@@ -1,0 +1,33 @@
+---
+# tasks file for nginx
+  - name: nginx | Adding nginx ppa
+    apt_repository:
+      repo="{{nginx_ppa}}"
+      update_cache=yes
+    when: nginx_install_from_ppa
+
+  - name: nginx | Installing nginx
+    apt:
+      pkg=nginx
+
+  - name: nginx | Copying nginx.conf
+    template:
+      src=nginx.conf
+      dest=/etc/nginx/nginx.conf
+      backup=yes
+      owner=root
+      mode=0644
+    notify:
+      - restart nginx
+
+  - name: nginx | Enabling monitoring with monit
+    template:
+      src=monit_nginx
+      dest=/etc/monit/monitrc.d/nginx
+      backup=yes
+      owner=root
+      mode=0644
+    when: nginx_enable_monit
+    notify:
+      - restart monit
+

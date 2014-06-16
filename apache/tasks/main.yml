@@ -1,0 +1,48 @@
+---
+# tasks file for apache
+
+  - name: apache | Installing apt packages
+    apt:
+      pkg={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - apache2
+      - "{{apache_mpm}}"
+      - apache2-utils
+
+  - name: apache | Installing mod-wsgi
+    apt:
+      pkg=libapache2-mod-wsgi
+      state=latest
+      update_cache=no
+    when: apache_install_mod-wsgi
+
+  - name: apache | Adding localhost directive to apache2.conf
+    lineinfile:
+      dest=/etc/apache2/apache2.conf
+      line="ServerName localhost"
+      state=present
+
+  - name: apache | Creating ssl dir in /etc/apache2
+    file:
+      path=/etc/apache2/ssl
+      owner=root
+      group=root
+      state=directory
+
+  - name: apache | Enabling apache2 modules
+    command: a2enmod {{item}}
+    with_items: "{{apache_modules}}"
+
+  - name: apache | Enabling monitoring with monit
+    template:
+      src=monit_apache
+      dest=/etc/monit/monitrc.d/apache
+      backup=yes
+      owner=root
+      mode=0644
+    when: apache_enable_monit
+    notify:
+      - restart monit
+

@@ -6,7 +6,7 @@
 
   - name: bootstrap | Setting locale
     locale_gen:
-      name={{default_locale}}
+      name={{bootstrap_locale}}
       state=present
 
   - name: bootstrap | Setting timezone

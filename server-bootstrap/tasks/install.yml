@@ -1,5 +1,6 @@
 ---
-  - name: bootstrap | Cambiando sources al mirror local de Ubuntu
+  #TODO: the script has hardcoded values. Create a module to abstract this functionality.
+  - name: bootstrap | Changing sources to ubuntu local mirror
     script: configure_sources.sh
     when: bootstrap_local_sources
 

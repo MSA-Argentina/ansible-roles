@@ -1,8 +1,11 @@
 ---
-  - name: bootstrap | Installing fail2ban
+  - name: bootstrap | Installing security packages
     apt:
-      pkg=fail2ban
+      pkg={{item}}
       state=latest
+    with_items:
+      - fail2ban
+      - ufw
 
   - name: bootstrap | Installing unattended-upgrades
     apt:

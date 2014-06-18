@@ -19,6 +19,7 @@
       - bzip2
       - curl
       - libssl-dev
+      - locales
       - ntp
       - openssl
       - python-software-properties

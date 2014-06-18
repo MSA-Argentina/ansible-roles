@@ -1,0 +1,10 @@
+- hosts: all
+  roles:
+    - server-bootstrap
+    - apache
+    - monit
+    - nginx
+    - postgresql
+    - supervisor
+    - uwsgi
+    - memcached

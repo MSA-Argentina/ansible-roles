@@ -8,6 +8,7 @@
     locale_gen:
       name={{bootstrap_locale}}
       state=present
+    when: not ansible_env.CONTINUOUS_INTEGRATION
 
   - name: bootstrap | Setting timezone
     template:

@@ -8,3 +8,5 @@
     - supervisor
     - uwsgi
     - memcached
+  vars_files:
+    - test_vars.yml

@@ -8,5 +8,8 @@
     - supervisor
     - uwsgi
     - memcached
-  vars_files:
-    - test_vars.yml
+  vars:
+    bootstrap_upgrade_system: true
+    bootstrap_locale: es_AR.UTF-8
+    bootstrap_local_sources: false
+    bootstrap_ufw_state: disabled

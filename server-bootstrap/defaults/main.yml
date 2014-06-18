@@ -1,5 +1,6 @@
 ---
 # General
+bootstrap_copy_publickey: true
 bootstrap_install_dev_packages: true
 bootstrap_local_sources: false
 bootstrap_locale: en_US.UTF-8

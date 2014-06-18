@@ -9,9 +9,10 @@
     - uwsgi
     - memcached
   vars:
-    remote_user_name: "{{ansible_ssh_user}}"
-    bootstrap_locale: es_AR.UTF-8
-    bootstrap_local_sources: false
-    bootstrap_ufw_state: disabled
-    bootstrap_set_locale: false
+    bootstrap_copy_publickey: false
     bootstrap_install_dev_packages: false
+    bootstrap_local_sources: false
+    bootstrap_locale: es_AR.UTF-8
+    bootstrap_set_locale: false
+    bootstrap_ufw_state: disabled
+    remote_user_name: "{{ansible_ssh_user}}"

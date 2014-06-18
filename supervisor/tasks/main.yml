@@ -19,9 +19,12 @@
 
   - name: supervisor | Creating directories
     file:
-      path=/etc/supervisor/conf.d
+      path={{item}}
       owner=root
       state=directory
+    with_items:
+      - /etc/supervisor/conf.d
+      - "{{supervisor_log_dir}}"
 
   - name: supervisor | Copying base configuration
     template:

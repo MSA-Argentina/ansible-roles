@@ -29,5 +29,5 @@
   - name: supervisor | Copying base configuration
     template:
       src=supervisord_base.conf
-      dest={{supervisor_dir}}/supervisord.conf
+      dest={{supervisor_config_dir}}/supervisord.conf
 

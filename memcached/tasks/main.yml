@@ -24,6 +24,7 @@
 
 - name: Set the max open file descriptors 
   sysctl: name=fs.file-max value={{ memcached_fs_file_max }} state=present
+  when: memcached_set_fs_file_max
 
 - name: start the memcached service
   service: name=memcached state=started enabled=yes

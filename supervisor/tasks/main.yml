@@ -31,3 +31,11 @@
       src=supervisord_base.conf
       dest={{supervisor_config_dir}}/supervisord.conf
 
+  - name: supervisor | Symlinking base configuration to /etc
+    file:
+      src={{supervisor_config_dir}}/supervisord.conf
+      dest=/etc/supervisord.conf
+      state=link
+    notify:
+      - restart supervisor
+

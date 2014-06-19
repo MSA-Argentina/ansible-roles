@@ -1,0 +1,10 @@
+---
+- include: install.yml
+- include: server.yml
+  when: not redis_sentinel
+  tags:
+    - config
+- include: sentinel.yml
+  when: redis_sentinel
+  tags:
+    - config

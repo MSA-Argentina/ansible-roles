@@ -11,7 +11,7 @@
 
   - name: supervisor | Copying Upstart script for supervisor
     template:
-      src=supervisord_init.conf
+      src=supervisord_init.conf.j2
       dest=/etc/init/supervisord.conf
       owner=root
       mode=644
@@ -28,7 +28,7 @@
 
   - name: supervisor | Copying base configuration
     template:
-      src=supervisord_base.conf
+      src=supervisord_base.conf.j2
       dest={{supervisor_config_dir}}/supervisord.conf
 
   - name: supervisor | Symlinking base configuration to /etc

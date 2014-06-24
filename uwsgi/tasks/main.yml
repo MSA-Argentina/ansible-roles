@@ -29,7 +29,7 @@
 
   - name: uWSGI | Copying upstart file
     template:
-      src=uwsgi_upstart.conf
+      src=uwsgi_upstart.conf.j2
       dest=/etc/init/{{uwsgi_service_name}}.conf
       owner=root
       mode=644
@@ -37,7 +37,7 @@
 
   - name: uWSGI | Copying uwsgi base config
     template:
-      src=uwsgi.ini
+      src=uwsgi.ini.j2
       dest={{uwsgi_config_directory}}/{{uwsgi_config_file}}
       owner=root
       mode=644

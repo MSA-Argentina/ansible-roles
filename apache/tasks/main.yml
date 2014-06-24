@@ -37,7 +37,7 @@
 
   - name: apache | Enabling monitoring with monit
     template:
-      src=monit_apache
+      src=monit_apache.j2
       dest=/etc/monit/monitrc.d/apache
       backup=yes
       owner=root

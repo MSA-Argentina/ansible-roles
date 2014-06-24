@@ -20,8 +20,8 @@
       group=root
       mode=700
     with_items:
-      - 10periodic
-      - 50unattended-upgrades
+      - 10periodic.j2
+      - 50unattended-upgrades.j2
 
   - name: bootstrap | Enabling ufw
     ufw:

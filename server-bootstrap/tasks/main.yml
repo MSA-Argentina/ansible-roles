@@ -12,8 +12,8 @@
 
   - name: bootstrap | Setting timezone
     template:
-      dest=/etc/timezone.j2
-      src=timezone
+      dest=/etc/timezone
+      src=timezone.j2
       owner=root
       group=root
       mode=644

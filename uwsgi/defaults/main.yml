@@ -7,4 +7,5 @@ uwsgi_config_directory: /etc/uwsgi
 uwsgi_config_file: uwsgi.ini
 uwsgi_executable: /usr/local/bin/uwsgi
 uwsgi_log_directory: /var/log/uwsgi
+uwsgi_log_file: "{{uwsgi_log_directory}}/uwsgi.log"
 uwsgi_service_name: uwsgi

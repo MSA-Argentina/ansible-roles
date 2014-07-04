@@ -34,7 +34,6 @@
     with_items:
       - git
       - htop
-      - mercurial
       - silversearcher-ag
       - vim
     when: bootstrap_install_dev_packages

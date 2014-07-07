@@ -1,10 +1,13 @@
 ---
-- include: install.yml
-- include: server.yml
-  when: not redis_sentinel
-  tags:
-    - config
-- include: sentinel.yml
-  when: redis_sentinel
-  tags:
-    - config
+  - name: redis | Adding redis PPA
+    apt_repository:
+      repo={{redis_ppa}}
+      state=present
+
+  - name: redis | Installing redis
+    apt:
+      name=redis-server
+      update_cache=yes
+      state=present
+    notify:
+      - restart redis

@@ -24,4 +24,3 @@ roles_path = /path/to/cloned_repo
 * Monit role from https://github.com/ansibles/monit
 * PostgreSQL role from https://github.com/ansibles/postgresql
 * Memcached role from https://github.com/bennojoy/memcached.git
-* Redis role from https://github.com/DavidWittman/ansible-redis

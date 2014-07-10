@@ -19,19 +19,19 @@
 
   - name: bootstrap | Adding WORKON_HOME environment variable
     lineinfile:
-      dest=/home/{{remote_user_name}}/.bashrc
+      dest=/home/{{remote_user}}/.bashrc
       line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
       state=present
 
   - name: bootstrap | Sourcing virtualenwrapper in user's bashrc
     lineinfile:
-      dest=/home/{{remote_user_name}}/.bashrc
+      dest=/home/{{remote_user}}/.bashrc
       line="source /usr/local/bin/virtualenvwrapper.sh"
       state=present
 
   - name: bootstrap | Creates virtualenv directory
     file:
-      path=/home/{{remote_user_name}}/{{bootstrap_virtualenv_workon_home}}
+      path=/home/{{remote_user}}/{{bootstrap_virtualenv_workon_home}}
       state=directory
-      owner={{remote_user_name}}
+      owner={{remote_user}}
 

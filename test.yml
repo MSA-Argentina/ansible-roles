@@ -16,6 +16,6 @@
     bootstrap_locale: es_AR.UTF-8
     bootstrap_set_locale: false
     bootstrap_ufw_state: disabled
-    remote_user_name: "{{ansible_ssh_user}}"
+    remote_user: "{{ansible_ssh_user}}"
     memcached_set_fs_file_max: false
     redis_travis_ci: false

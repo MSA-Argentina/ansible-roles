@@ -10,5 +10,6 @@ memcached_redhat_pkgs:
 memcached_ubuntu_pkgs:
   - python-selinux
   - memcached
+  - libmemcached-dev
 
   

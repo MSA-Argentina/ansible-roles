@@ -54,7 +54,7 @@
 
   - name: apache | Enabling apache2 modules
     command: a2enmod {{item}}
-    with_items: "{{apache_modules}}"
+    with_items: apache_modules
 
   - name: apache | Enabling monitoring with monit
     template:

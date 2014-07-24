@@ -1,6 +1,7 @@
 ---
 # defaults file for nginx
 nginx_access_log: /var/log/nginx/access.log
+nginx_client_max_body_size: 1M
 nginx_error_log: /var/log/nginx/error.log
 nginx_enable_monit: false
 nginx_install_from_ppa: true

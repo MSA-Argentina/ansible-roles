@@ -2,7 +2,7 @@
 # General
 bootstrap_copy_publickey: false
 bootstrap_install_dev_packages: true
-bootstrap_install_mercurial: true
+bootstrap_install_mercurial: false
 bootstrap_local_sources: false
 bootstrap_locale: en_US.UTF-8
 bootstrap_log_dir: /var/log

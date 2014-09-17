@@ -11,3 +11,37 @@
       state=present
     notify:
       - restart redis
+
+  - name: redis | Adding a second instance:configuration
+    template:
+      src=redis_secondary.conf.j2
+      dest=/etc/redis/redis_secondary.conf
+      backup=yes
+    when: redis_secondary_master == true
+
+  - name: redis | Adding a second instance:cache directory
+    file:
+      path=/var/lib/redis-secondary
+      state=directory
+      owner=redis
+      group=redis
+    when: redis_secondary_master == true
+
+  - name: redis | Adding a second instance:init script
+    template:
+      src=redis-secondary-server
+      dest=/etc/init.d/redis-secondary-server
+      backup=no
+      mode=0755
+    when: redis_secondary_master == true
+
+  - name: redis | Adding a second instance:starting on boot
+    shell: update-rc.d redis-secondary-server defaults
+    when: redis_secondary_master == true
+
+  - name: redis | Adding a second instance:starting service now
+    service:
+      name=redis-secondary-server
+      state=started
+    when: redis_secondary_master == true
+

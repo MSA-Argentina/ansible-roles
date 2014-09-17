@@ -1,5 +1,5 @@
 # Description
-This role installs the last version redis-server on Ubuntu 14.04 using a ppa.
+This role installs the last version of redis-server on Ubuntu 14.04 using a ppa.
 
 # Requirements
 

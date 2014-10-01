@@ -8,7 +8,7 @@ Some useful roles to speed up deployments with Ansible.
 ```
 roles_path = /path/to/cloned_repo
 ```
-* Then you use any of these roles in your playbooks:
+* Finally, use any of these roles in your playbooks:
 ```
 ---
 - hosts: all

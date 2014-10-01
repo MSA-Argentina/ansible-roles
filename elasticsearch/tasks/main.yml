@@ -5,7 +5,7 @@
 - apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
 
 # set dedicated repository
-- apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{es_version}}/debian stable main' state=present
+- apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ es_version }}/debian stable main' state=present
 
 # install elasticsearch with dependancies
 - name: install elasticsearch
@@ -13,13 +13,11 @@
   tags: elasticsearch
   with_items:
     - elasticsearch
-    - openjdk-7-jre-headless
-    - openntpd
   notify: init elasticsearch
 
 # set limits.conf
 - name: limits.conf tuning
-  lineinfile: dest=/etc/security/limits.conf line="{{ item }}" 
+  lineinfile: dest=/etc/security/limits.conf line="{{ item }}"
   tags: elasticsearch
   with_items:
     - 'elasticsearch soft nofile 32000'

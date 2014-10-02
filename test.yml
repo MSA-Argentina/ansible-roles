@@ -1,7 +1,7 @@
 - hosts: all
   roles:
 #    - server-bootstrap
-    - apache
+#    - apache
     - monit
     - nginx
     - postgresql
@@ -9,6 +9,8 @@
     - uwsgi
     - redis
     - memcached
+    - java
+    - elasticsearch
   vars:
     bootstrap_copy_publickey: false
     bootstrap_install_dev_packages: false

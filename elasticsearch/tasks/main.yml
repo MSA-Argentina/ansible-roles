@@ -2,10 +2,10 @@
 # Install elasticsearch
 
 - name: elasticsearch | Adding ES repository key
-- apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
+  apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
 
 - name: elasticsearch | Adding ES repository
-- apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ es_version }}/debian stable main' state=present
+  apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ es_version }}/debian stable main' state=present
 
 - name: elasticsearch | Installing ES
   apt: name={{ item }} state=latest force=yes
@@ -22,7 +22,7 @@
     - 'elasticsearch hard nofile 32000'
 
 - name: elasticsearch | Ensuring the service is started
-- service: name=elasticsearch state=started
+  service: name=elasticsearch state=started
 
 - name: elasticsearch | Installing plugins
-- include: plugins.yml
+  include: plugins.yml

@@ -12,6 +12,7 @@
     - java
     - elasticsearch
   vars:
+    monit_protection: true
     bootstrap_copy_publickey: false
     bootstrap_install_dev_packages: false
     bootstrap_local_sources: false

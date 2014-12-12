@@ -26,3 +26,9 @@
 
 - name: elasticsearch | Installing plugins
   include: plugins.yml
+
+- name: elasticsearch | (Monit) Copy the elasticsearch monit service file
+  template:
+    src: monit_conf.d_elasticsearch.j2
+    dest: /etc/monit/conf.d/elasticsearch
+  when: monit_protection == true

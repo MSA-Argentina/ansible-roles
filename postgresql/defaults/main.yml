@@ -98,11 +98,6 @@ postgresql_ssl_crl_file: ''
 postgresql_password_encryption: on
 postgresql_db_user_namespace: off
 
-# Kerberos and GSSAPI
-postgresql_krb_server_keyfile: ''
-postgresql_krb_srvname: postgres
-postgresql_krb_caseins_users: off
-
 # TCP Keepalives, 0 selects the system default (in seconds)
 postgresql_tcp_keepalives_idle: 0
 postgresql_tcp_keepalives_interval: 0

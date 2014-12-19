@@ -75,11 +75,6 @@ ssl_crl_file            = '{{postgresql_ssl_crl_file}}'
 password_encryption     = {{'on' if postgresql_password_encryption else 'off'}}
 db_user_namespace       = {{'on' if postgresql_db_user_namespace else 'off'}}
 
-# Kerberos and GSSAPI
-krb_server_keyfile = '{{postgresql_krb_server_keyfile}}'
-krb_srvname        = '{{postgresql_krb_srvname}}'
-krb_caseins_users  = {{'on' if postgresql_db_user_namespace else 'off'}}
-
 # TCP Keepalives, 0 selects the system default
 tcp_keepalives_idle     = {{postgresql_tcp_keepalives_idle}}
 tcp_keepalives_interval = {{postgresql_tcp_keepalives_interval}}

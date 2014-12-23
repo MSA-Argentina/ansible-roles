@@ -36,5 +36,6 @@
       - htop
       - silversearcher-ag
       - vim
+      - tree
     when: bootstrap_install_dev_packages
 

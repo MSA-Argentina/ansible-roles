@@ -8,7 +8,6 @@
       update_cache=yes
     with_items:
       - apache2
-      - "{{apache_mpm}}"
       - apache2-utils
     when: ansible_os_family == "Debian"
 
@@ -18,6 +17,14 @@
       state=latest
       update_cache=no
     when: apache_install_mod-wsgi
+    when: ansible_os_family == "Debian"
+
+  - name: apache | Disabling default mpm module
+    command: a2dismod mpm_event
+    when: ansible_os_family == "Debian"
+
+  - name: apache | Enabling preferred mpm module
+    command: a2enmod mpm_{{apache_mpm}}
     when: ansible_os_family == "Debian"
 
   - name: apache | Installing mod-proxy-uwsgi

@@ -32,7 +32,7 @@ For example:
 ## List of included variables and default values
 
 * ```apache_enable_monit```: Enable monitoring with monit. Default is ```false```
-* ```apache_mpm```: Installs the specified mpm. Default is ```apache2-mpm-prefork```
+* ```apache_mpm```: Enable the specified mpm module. Default is ```prefork```. Other options are ```event``` and ```worker```.
 * ```apache_install_mod-wsgi```: Installs mod-wsgi. Default is ```yes```
 * ```apache_modules```: A list of modules to enable. Defaults: ```rewrite```, ```ssl``` and ```wsgi```
 

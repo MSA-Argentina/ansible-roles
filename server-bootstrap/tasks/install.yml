@@ -39,3 +39,10 @@
       - tree
     when: bootstrap_install_dev_packages
 
+  - name: bootstrap | Adding nagios plugin
+    apt:
+      pkg=nagios-plugins
+      state=latest
+      update_cache=yes
+      install_recommends=no
+    when: bootstrap_nagios

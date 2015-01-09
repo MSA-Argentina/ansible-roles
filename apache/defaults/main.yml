@@ -1,6 +1,8 @@
 ---
 # defaults file for apache
 
+apache_server_signature: "off"
+apache_server_tokens: OS
 apache_install_mod-wsgi: yes
 apache_install_mod_proxy_uwsgi: no
 # this can be prefork, worker or event

@@ -90,3 +90,15 @@
     notify:
       - restart monit
 
+  - name: apache | Setting ServerToken
+    lineinfile:
+      dest=/etc/apache2/conf-available/security.conf
+      regexp=^ServerTokens
+      line="ServerTokens {{apache_server_tokens}}"
+
+  - name: apache | Setting ServerSignature
+    lineinfile:
+      dest=/etc/apache2/conf-available/security.conf
+      regexp=^ServerSignature
+      line="ServerSignature {{apache_server_signature}}"
+

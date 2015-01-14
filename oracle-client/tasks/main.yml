@@ -25,14 +25,14 @@
 
   - name: oracle | Creating IC symlink
     file:
-       src="{{oracle_ic_dir}}"
+       src="{{oracle_ic_dir}}/"
        dest="{{oracle_ic_symlink}}"
        state=link
 
   - name: oracle | Unzipping IC files
     unarchive:
       src="/tmp/{{item}}"
-      dest="{{oracle_ic_dir}}"
+      dest="/opt"
       copy=no
 
     with_items:

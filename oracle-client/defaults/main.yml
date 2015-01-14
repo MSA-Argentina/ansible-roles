@@ -1,9 +1,11 @@
 ---
 # defaults file for oracle-client
 
-oracle_home: /usr/lib/oracle/12.1/client64
-oracle_ic_basic: oracle-ic-basic.deb
-oracle_ic_devel: oracle-ic-devel.deb
-oracle_ic_sqlplus: oracle-ic-sqlplus.deb
+oracle_ic_dir: /opt/instantclient_11_2
+oracle_ic_symlink: /opt/instantclient
+oracle_home: "{{oracle_ic_symlink}}"
+oracle_ic_basic: oracle-ic-basic.zip
+oracle_ic_devel: oracle-ic-devel.zip
+oracle_ic_sqlplus: oracle-ic-sqlplus.zip
 oracle_ic_url: http://manic.msa/oracle-ic/
 oracle_lib_path: /usr/lib/oracle/12.1/client64/lib

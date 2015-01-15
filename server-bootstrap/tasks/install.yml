@@ -37,6 +37,7 @@
       - silversearcher-ag
       - vim
       - tree
+      - unzip
     when: bootstrap_install_dev_packages
 
   - name: bootstrap | Adding nagios plugin

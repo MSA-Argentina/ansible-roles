@@ -1,5 +1,4 @@
 ---
-# tasks file for nginx
   - name: nginx | Adding nginx ppa
     apt_repository:
       repo="{{nginx_ppa}}"
@@ -9,6 +8,13 @@
   - name: nginx | Installing nginx
     apt:
       pkg=nginx
+
+  - name: nginx | Creating ssl dir
+    file:
+      path=/etc/nginx/ssl
+      state=directory
+      owner=root
+      mode=770
 
   - name: nginx | Copying nginx.conf
     template:

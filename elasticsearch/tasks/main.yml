@@ -32,3 +32,12 @@
     src: monit_conf.d_elasticsearch.j2
     dest: /etc/monit/conf.d/elasticsearch
   when: monit_protection == true
+
+- name: elasticsearch | Copy configuration template
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch/elasticsearch.yml
+    backup: yes
+
+- name: elasticsearch | Restarting service
+  service: name=elasticsearch state=restarted

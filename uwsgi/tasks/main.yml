@@ -13,7 +13,10 @@
 
   - name: uWSGI | Installing uwsgi
     pip:
-      name=uwsgi
+      name={{item}}
+    with_items:
+      - uwsgi
+      - uwsgitop
 
   - name: uWSGI | Creating directories
     file:

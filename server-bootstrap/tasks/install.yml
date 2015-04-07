@@ -37,6 +37,7 @@
       - silversearcher-ag
       - vim
       - tree
+      - multitail
       - unzip
     when: bootstrap_install_dev_packages
 

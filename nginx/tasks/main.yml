@@ -1,9 +1,15 @@
 ---
-  - name: nginx | Adding nginx ppa
+  - name: nginx | Adding nginx ppa stable
     apt_repository:
       repo="{{nginx_ppa}}"
       update_cache=yes
-    when: nginx_install_from_ppa
+    when: nginx_version == "stable"
+
+  - name: nginx | Adding nginx ppa mainline
+    apt_repository:
+      repo="{{nginx_ppa}}"
+      update_cache=yes
+    when: nginx_version == "mainline"
 
   - name: nginx | Installing nginx
     apt:

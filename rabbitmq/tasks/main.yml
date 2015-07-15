@@ -1,0 +1,16 @@
+---
+  - name: rabbitmq | Adding rabbitmq repository
+    apt_repository:
+      repo='{{rabbitmq_repository}}'
+      state=present
+
+  - name: rabbitmq | Adding rabbitmq repository key
+    apt_key:
+      url={{rabbitmq_apt_key}}
+      state=present
+
+  - name: rabbitmq | Installing rabbitmq
+    apt:
+      name=rabbitmq-server
+      update_cache=yes
+      state=present

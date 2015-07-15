@@ -1,0 +1,3 @@
+---
+rabbitmq_repository: 'deb http://www.rabbitmq.com/debian/ testing main'
+rabbitmq_apt_key: 'https://www.rabbitmq.com/rabbitmq-signing-key-public.asc'

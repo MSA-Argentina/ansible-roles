@@ -593,9 +593,29 @@ postgresql_exit_on_error: off
 # Reinitialize after backend crash?
 postgresql_restart_after_crash: on
 
-
-
-
 postgresql_env:
   LC_ALL: "{{ postgresql_locale }}"
   LC_LCTYPE: "{{ postgresql_locale }}"
+
+#------------------------------------------------------------------------------
+# PGBOUNCER
+#------------------------------------------------------------------------------
+postgresql_pgbouncer_conf_dir: '/etc/pgbouncer/'
+postgresql_pgbouncer_port: 6432
+postgresql_pgbouncer_listen_address: 127.0.0.1
+postgresql_pgbouncer_log_file: '/var/log/postgresql/pgbouncer.log'
+postgresql_pgbouncer_pid_file: '/var/run/postgresql/pgbouncer.pid'
+
+# When server connection is released back to pool:
+#   session      - after client disconnects
+#   transaction  - after transaction finishes
+#   statement    - after statement finishes
+postgresql_pgbouncer_pool_mode: transaction
+
+# total number of clients that can connect
+postgresql_pgbouncer_max_client_conn: 800
+
+# default pool size.  20 is good number when transaction pooling
+# is in use, in session pooling it needs to be the number of
+# max clients you want to handle at any moment
+postgresql_pgbouncer_default_pool_size: 20

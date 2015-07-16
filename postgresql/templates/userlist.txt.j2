@@ -1,0 +1,3 @@
+{% for user in postgresql_pgbouncer_users %}
+"{{ user }}" "md5{{ user|hash('md5') }}"
+{% endfor %}

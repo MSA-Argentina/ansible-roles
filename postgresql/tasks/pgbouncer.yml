@@ -1,0 +1,36 @@
+---
+- name: PostgreSQL | Install pgbouncer
+  apt:
+    name: "{{item}}"
+    state: present
+  environment: postgresql_env
+  with_items:
+    - pgbouncer
+
+- name: PostgreSQL | Add pgbouncer configuration
+  template:
+    src: pgbouncer.ini.j2
+    dest: "{{postgresql_pgbouncer_conf_dir}}/pgbouncer.ini"
+    owner: "{{postgresql_admin_user}}"
+    group: "{{postgresql_admin_user}}"
+    mode: 0640
+
+- name: PostgreSQL | Add pgbouncer authfile
+  template:
+    src: userlist.txt.j2
+    dest: "{{postgresql_pgbouncer_conf_dir}}/userlist.txt"
+    owner: "{{postgresql_admin_user}}"
+    group: "{{postgresql_admin_user}}"
+    mode: 0640
+
+- name: PostgreSQL | Defaults file for pgbouncer
+  lineinfile:
+    create: yes
+    state: present
+    dest: "/etc/default/pgbouncer"
+    line: "START=1"
+
+- name: PostgreSQL | Starting pgbouncer service
+  service:
+    name: pgbouncer
+    state: restarted

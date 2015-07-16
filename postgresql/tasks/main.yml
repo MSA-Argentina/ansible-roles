@@ -5,5 +5,7 @@
 - include: configure.yml
 - include: databases.yml
 - include: users.yml
+- include: pgbouncer.yml
+  when: postgresql_install_pgbouncer is defined and postgresql_install_pgbouncer == true
 - include: monit.yml
   when: monit_protection is defined and monit_protection == true

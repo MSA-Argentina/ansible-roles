@@ -44,10 +44,3 @@
       name=redis-secondary-server
       state=started
     when: redis_secondary_master == true
-
-  - name: redis | (Monit) Copy the redis monit service file
-    template:
-      src: monit_conf.d_redis.j2
-      dest: /etc/monit/conf.d/redis
-    when: monit_protection == true
-

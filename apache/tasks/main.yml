@@ -79,17 +79,6 @@
     command: a2enmod {{item}}
     with_items: apache_modules
 
-  - name: apache | Enabling monitoring with monit
-    template:
-      src=monit_apache.j2
-      dest=/etc/monit/monitrc.d/apache
-      backup=yes
-      owner=root
-      mode=0644
-    when: apache_enable_monit
-    notify:
-      - restart monit
-
   - name: apache | Setting ServerToken
     lineinfile:
       dest=/etc/apache2/conf-available/security.conf

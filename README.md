@@ -21,7 +21,6 @@ roles_path = /path/to/cloned_repo
 
 # Credits
 
-* Monit role from https://github.com/ansibles/monit
 * PostgreSQL role from https://github.com/ansibles/postgresql
 * Memcached role from https://github.com/bennojoy/memcached
 * ElasticSearch role from https://github.com/deimosfr/ansible-elasticsearch

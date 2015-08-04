@@ -8,7 +8,6 @@ apache_install_mod_proxy_uwsgi: no
 # this can be prefork, worker or event
 apache_mpm: prefork
 apache_pid_file: /var/run/apache2/apache2.pid
-apache_enable_monit: false
 apache_modules:
   - rewrite
   - ssl

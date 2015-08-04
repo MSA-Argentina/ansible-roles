@@ -5,8 +5,6 @@ Ansible role which installs and configures PostgreSQL, extensions, databases and
 
 #### Requirements & Dependencies
 - Tested on Ansible 1.4 or higher.
-- Ansibles.monit ([Galaxy](https://galaxy.ansible.com/list#/roles/502)/[GH](https://github.com/Ansibles/monit)) if you want monit protection (in that case, you should set `monit_protection: true`)
-
 
 #### Variables
 

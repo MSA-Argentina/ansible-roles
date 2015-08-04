@@ -31,15 +31,3 @@
       mode=0644
     notify:
       - restart nginx
-
-  - name: nginx | Enabling monitoring with monit
-    template:
-      src=monit_nginx.j2
-      dest=/etc/monit/conf.d/nginx
-      backup=yes
-      owner=root
-      mode=0644
-    when: nginx_enable_monit == true
-    notify:
-      - restart monit
-

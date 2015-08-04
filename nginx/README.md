@@ -34,7 +34,6 @@ For example:
 
 * ```nginx_access_log```: Location of nginx access log. Default is ```/var/log/nginx/access.log```
 * ```nginx_error_log```: Location of nginx error log. Default is ```/var/log/nginx/error.log```
-* ```nginx_enable_monit```: Enable monitoring with monit. Default is ```false```
 * ```nginx_install_from_ppa```: If true, install nginx for the official ppa. If false, it uses the official ubuntu repos. error log. Default is ```true```
 * ```nginx_pid_file```: Location of nginx pid file. Default is ```/var/run/nginx.pid```
 * ```nginx_ppa```: Defines the ppa address Default is ```ppa:nginx/stable```

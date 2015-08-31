@@ -1,12 +1,12 @@
 ---
 # defaults file for nginx
 nginx_access_log: /var/log/nginx/access.log
-nginx_client_max_body_size: 1M
+nginx_client_max_body_size: 3M
 nginx_error_log: /var/log/nginx/error.log
 nginx_pid_file: /var/run/nginx.pid
 nginx_ppa_mainline: ppa:nginx/development
 nginx_ppa_stable: ppa:nginx/stable
 nginx_version: mainline
 nginx_user: www-data
-nginx_worker_connections: 768
+nginx_worker_connections: 1024
 nginx_worker_processes: auto

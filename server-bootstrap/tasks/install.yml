@@ -48,3 +48,24 @@
       update_cache=yes
       install_recommends=no
     when: bootstrap_nagios
+
+  - name: bootstrap | Adding mosh PPA
+    apt_repository:
+      repo="ppa:keithw/mosh"
+      update_cache=yes
+    when: bootstrap_install_mosh
+
+  - name: bootstrap | Installing mosh
+    apt:
+      pkg=mosh
+      state=latest
+      update_cache=yes
+      install_recommends=no
+    when: bootstrap_install_mosh
+
+  - name: bootstrap | Enabling port(s) for mosh in ufw
+    ufw:
+      rule=allow
+      port="60000:61000"
+      proto=udp
+    when: bootstrap_install_mosh

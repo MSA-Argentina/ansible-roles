@@ -10,6 +10,7 @@ bootstrap_set_locale: true
 bootstrap_timezone: "America/Argentina/Buenos_Aires"
 bootstrap_upgrade_system: false
 bootstrap_nagios: false
+bootstrap_install_mosh: false
 
 # Python install
 bootstrap_python_install: true

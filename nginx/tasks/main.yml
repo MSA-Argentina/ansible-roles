@@ -1,15 +1,14 @@
 ---
-  - name: nginx | Adding nginx ppa stable
+  - name: nginx | Adding repo key
+    apt_key:
+      url=http://nginx.org/keys/nginx_signing.key
+      state=present
+    
+  - name: nginx | Adding nginx repository
     apt_repository:
-      repo="{{nginx_ppa_stable}}"
+      repo="{{nginx_repository}}"
       update_cache=yes
-    when: nginx_version == "stable"
-
-  - name: nginx | Adding nginx ppa mainline
-    apt_repository:
-      repo="{{nginx_ppa_mainline}}"
-      update_cache=yes
-    when: nginx_version == "mainline"
+      state=present
 
   - name: nginx | Installing nginx
     apt:

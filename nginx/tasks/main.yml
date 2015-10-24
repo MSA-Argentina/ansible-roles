@@ -21,6 +21,20 @@
       owner=root
       mode=770
 
+  - name: nginx | Creating sites-available dir
+    file:
+      path=/etc/nginx/sites-available
+      state=directory
+      owner=root
+      mode=770
+
+  - name: nginx | Creating sites-enabled dir
+    file:
+      path=/etc/nginx/sites-enabled
+      state=directory
+      owner=root
+      mode=770
+
   - name: nginx | Copying nginx.conf
     template:
       src=nginx.conf.j2

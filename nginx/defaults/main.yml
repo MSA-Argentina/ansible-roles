@@ -4,7 +4,7 @@ nginx_access_log: /var/log/nginx/access.log
 nginx_client_max_body_size: 3M
 nginx_error_log: /var/log/nginx/error.log
 nginx_pid_file: /var/run/nginx.pid
-nginx_repository: "deb http://nginx.org/packages/ubuntu/ trusty nginx"
+nginx_repository: "deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx"
 nginx_user: www-data
 nginx_worker_connections: 1024
 nginx_worker_processes: auto

@@ -1,0 +1,28 @@
+# Security settings
+
+# don't send the nginx version number in error pages and Server header
+server_tokens off;
+
+# Do not allow this site to be displayed in iframes
+add_header X-Frame-Options DENY;
+
+# when serving user-supplied content, include a X-Content-Type-Options: nosniff header along with the Content-Type: header,
+# to disable content-type sniffing on some browsers.
+# https://www.owasp.org/index.php/List_of_useful_HTTP_headers
+# currently suppoorted in IE > 8 http://blogs.msdn.com/b/ie/archive/2008/09/02/ie8-security-part-vi-beta-2-update.aspx
+# http://msdn.microsoft.com/en-us/library/ie/gg622941(v=vs.85).aspx
+# 'soon' on Firefox https://bugzilla.mozilla.org/show_bug.cgi?id=471020
+add_header X-Content-Type-Options nosniff;
+
+# This header enables the Cross-site scripting (XSS) filter built into most recent web browsers.
+# It's usually enabled by default anyway, so the role of this header is to re-enable the filter for 
+# this particular website if it was disabled by the user.
+# https://www.owasp.org/index.php/List_of_useful_HTTP_headers
+add_header X-XSS-Protection "1; mode=block";
+
+limit_conn_zone $binary_remote_addr zone=addr:10m;
+limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
+
+# Rejected requests receive 444
+limit_conn_status 444;
+limit_req_status 444;

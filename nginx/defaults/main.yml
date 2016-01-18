@@ -8,3 +8,5 @@ nginx_repository: "deb http://nginx.org/packages/mainline/ubuntu/ trusty nginx"
 nginx_user: www-data
 nginx_worker_connections: 1024
 nginx_worker_processes: auto
+nginx_hash_bucket_size: 512
+nginx_keepalive_timeout: 65

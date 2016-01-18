@@ -1,5 +1,5 @@
 ---
-  - name: bootstrap | Installling apt packages useful for python development
+  - name: bootstrap | Installing apt packages useful for python development
     apt:
       pkg={{item}}
       state=latest

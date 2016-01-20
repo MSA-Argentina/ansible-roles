@@ -3,7 +3,9 @@
   apt:
     name: "{{item}}"
     state: present
-  environment: postgresql_env
+  environment:
+    LC_ALL: "{{ postgresql_locale }}"
+    LC_LCTYPE: "{{ postgresql_locale }}"
   with_items:
     - pgbouncer
 

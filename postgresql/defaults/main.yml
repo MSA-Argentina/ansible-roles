@@ -593,10 +593,6 @@ postgresql_exit_on_error: off
 # Reinitialize after backend crash?
 postgresql_restart_after_crash: on
 
-postgresql_env:
-  LC_ALL: "{{ postgresql_locale }}"
-  LC_LCTYPE: "{{ postgresql_locale }}"
-
 #------------------------------------------------------------------------------
 # PGBOUNCER
 #------------------------------------------------------------------------------

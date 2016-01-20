@@ -8,7 +8,8 @@
 - name: Install the memcached packages 
   apt: name={{ item }} state=present update_cache=yes
   with_items: memcached_ubuntu_pkgs
-  environment: env
+  environment:
+    RUNLEVEL: 1
   when: ansible_os_family == "Debian"
 
 - name: Copy the client configuration file 

@@ -27,7 +27,7 @@ The following play setup's memcached with a different port number and
 available memory.
 
 	- hosts: all
-	  sudo: true
+	  become: true
 	  roles:
 	  - {role: bennojoy.memcached, memcached_port: 11244, memcached_cache_size: 512 }
 

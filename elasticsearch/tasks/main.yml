@@ -1,37 +1,37 @@
 ---
 # Install elasticsearch
 
-- name: elasticsearch | Adding ES repository key
+- name: Adding ES repository key
   apt_key: url=http://packages.elasticsearch.org/GPG-KEY-elasticsearch state=present
 
-- name: elasticsearch | Adding ES repository
+- name: Adding ES repository
   apt_repository: repo='deb http://packages.elasticsearch.org/elasticsearch/{{ es_version }}/debian stable main' state=present
 
-- name: elasticsearch | Installing ES
+- name: Installing ES
   apt: name={{ item }} state=latest force=yes
   tags: elasticsearch
   with_items:
     - elasticsearch
   notify: init elasticsearch
 
-- name: elasticsearch | Tuning limits.conf
+- name: Tuning limits.conf
   lineinfile: dest=/etc/security/limits.conf line="{{ item }}"
   tags: elasticsearch
   with_items:
     - 'elasticsearch soft nofile 32000'
     - 'elasticsearch hard nofile 32000'
 
-- name: elasticsearch | Ensuring the service is started
+- name: Ensuring the service is started
   service: name=elasticsearch state=started
 
-- name: elasticsearch | Installing plugins
+- name: Installing plugins
   include: plugins.yml
 
-- name: elasticsearch | Copy configuration template
+- name: Copy configuration template
   template:
     src: elasticsearch.yml.j2
     dest: /etc/elasticsearch/elasticsearch.yml
     backup: yes
 
-- name: elasticsearch | Restarting service
+- name: Restarting service
   service: name=elasticsearch state=restarted

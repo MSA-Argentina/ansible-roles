@@ -1,5 +1,5 @@
 ---
-  - name: oracle | Installing required apt packages
+  - name: Installing required apt packages
     apt:
       pkg={{item}}
       state=latest
@@ -9,7 +9,7 @@
       - libffi-dev
       - unzip
       
-  - name: oracle | Download IC zips
+  - name: Download IC zips
     command:
       wget -nc {{oracle_ic_url}}{{item}}
       chdir=/tmp
@@ -18,18 +18,18 @@
       - "{{oracle_ic_sqlplus}}"
       - "{{oracle_ic_devel}}"
 
-  - name: oracle | Creating IC main dir
+  - name: Creating IC main dir
     file:
        path="{{oracle_ic_dir}}"
        state=directory
 
-  - name: oracle | Creating IC symlink
+  - name: Creating IC symlink
     file:
        src="{{oracle_ic_dir}}/"
        dest="{{oracle_ic_symlink}}"
        state=link
 
-  - name: oracle | Unzipping IC files
+  - name: Unzipping IC files
     unarchive:
       src="/tmp/{{item}}"
       dest="/opt"
@@ -40,14 +40,14 @@
       - "{{oracle_ic_sqlplus}}"
       - "{{oracle_ic_devel}}"
 
-  - name: oracle | Adding Oracle libs to ld.so.conf.d
+  - name: Adding Oracle libs to ld.so.conf.d
     lineinfile:
       dest=/etc/ld.so.conf.d/oracle.conf
       line="{{oracle_ic_symlink}}"
       state=present
       create=yes
 
-  - name: oracle | Adding Oracle vars to system wide profile
+  - name: Adding Oracle vars to system wide profile
     lineinfile:
       dest=/etc/profile
       line="export {{item}}={{oracle_home}}"
@@ -57,30 +57,30 @@
       - TNS_ADMIN
       - ORACLE_HOME
 
-  - name: oracle | Adding Oracle IC dir to PATH
+  - name: Adding Oracle IC dir to PATH
     lineinfile:
       dest=/etc/profile
       line="export PATH=$PATH:{{oracle_home}}"
       state=present
 
-  - name: oracle | Creating IC symlink
+  - name: Creating IC symlink
     file:
        src="{{oracle_ic_dir}}"
        dest="{{oracle_ic_symlink}}"
        state=link
 
-  - name: oracle | Creating symlink para libclntsh.so
+  - name: Creating symlink para libclntsh.so
     file:
        src="{{oracle_ic_dir}}/libclntsh.so.11.1"
        dest="{{oracle_ic_dir}}/libclntsh.so"
        state=link
 
-  - name: oracle | Creating symlink para libocci.so
+  - name: Creating symlink para libocci.so
     file:
        src="{{oracle_ic_dir}}/libocci.so.11.1"
        dest="{{oracle_ic_dir}}/libocci.so"
        state=link
 
-  - name: oracle | Running ldconfig
+  - name: Running ldconfig
     command:
       ldconfig

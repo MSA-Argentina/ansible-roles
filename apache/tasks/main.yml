@@ -20,6 +20,7 @@
   - name: Disabling default mpm module
     command: a2dismod mpm_event
     when: ansible_os_family == "Debian"
+    ignore_errors: yes
 
   - name: Enabling preferred mpm module
     command: a2enmod mpm_{{apache_mpm}}

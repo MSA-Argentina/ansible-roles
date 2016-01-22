@@ -7,8 +7,7 @@
     with_items:
       - apache2
       - apache2-utils
-      - apache2-mpm-event
-      - apache2-mpm-prefork
+      - apache2-mpm-{{apache_mpm}}
     when: ansible_os_family == "Debian"
 
   - name: Installing mod-wsgi

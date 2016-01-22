@@ -11,4 +11,3 @@ apache_pid_file: /var/run/apache2/apache2.pid
 apache_modules:
   - rewrite
   - ssl
-  - wsgi

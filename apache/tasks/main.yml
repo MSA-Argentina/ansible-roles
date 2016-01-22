@@ -25,6 +25,7 @@
   - name: Enabling preferred mpm module
     command: a2enmod mpm_{{apache_mpm}}
     when: ansible_os_family == "Debian"
+    ignore_errors: yes
 
   - name: Installing mod-proxy-uwsgi
     apt:

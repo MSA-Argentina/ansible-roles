@@ -16,10 +16,6 @@
       update_cache=no
     when: apache_install_mod-wsgi is defined and ansible_os_family == "Debian"
 
-  - name: Disabling default mpm module
-    command: a2dismod mpm_event
-    when: ansible_os_family == "Debian"
-
   - name: Enabling preferred mpm module
     command: a2enmod mpm_{{apache_mpm}}
     when: ansible_os_family == "Debian"

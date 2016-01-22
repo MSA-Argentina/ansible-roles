@@ -7,6 +7,8 @@
     with_items:
       - apache2
       - apache2-utils
+      - apache2-mpm-event
+      - apache2-mpm-prefork
     when: ansible_os_family == "Debian"
 
   - name: Installing mod-wsgi
@@ -15,6 +17,10 @@
       state=latest
       update_cache=no
     when: apache_install_mod-wsgi is defined and ansible_os_family == "Debian"
+
+  - name: Disabling default mpm module
+    command: a2dismod mpm_event
+    when: ansible_os_family == "Debian"
 
   - name: Enabling preferred mpm module
     command: a2enmod mpm_{{apache_mpm}}

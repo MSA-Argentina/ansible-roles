@@ -1,7 +1,5 @@
 ---
-# tasks file for apache
-
-  - name: apache | Installing packages
+  - name: Installing packages
     apt:
       pkg={{item}}
       state=latest
@@ -11,36 +9,36 @@
       - apache2-utils
     when: ansible_os_family == "Debian"
 
-  - name: apache | Installing mod-wsgi
+  - name: Installing mod-wsgi
     apt:
       pkg=libapache2-mod-wsgi
       state=latest
       update_cache=no
-    when: apache_install_mod-wsgi and ansible_os_family == "Debian"
+    when: apache_install_mod-wsgi is defined and ansible_os_family == "Debian"
 
-  - name: apache | Disabling default mpm module
+  - name: Disabling default mpm module
     command: a2dismod mpm_event
     when: ansible_os_family == "Debian"
 
-  - name: apache | Enabling preferred mpm module
+  - name: Enabling preferred mpm module
     command: a2enmod mpm_{{apache_mpm}}
     when: ansible_os_family == "Debian"
 
-  - name: apache | Installing mod-proxy-uwsgi
+  - name: Installing mod-proxy-uwsgi
     apt:
       pkg=libapache2-mod-proxy-uwsgi
       state=latest
       update_cache=no
-    when: apache_install_mod_proxy_uwsgi and ansible_os_family == "Debian"
+    when: apache_install_mod_proxy_uwsgi is defined and ansible_os_family == "Debian"
 
-  - name: apache | Enabling mod-proxy-uwgi
+  - name: Enabling mod-proxy-uwgi
     command: a2enmod {{item}}
     with_items:
       - proxy
       - proxy_uwsgi
-    when: apache_install_mod_proxy_uwsgi and ansible_os_family == "Debian"
+    when: apache_install_mod_proxy_uwsgi is defined and ansible_os_family == "Debian"
 
-  - name: apache | Installing packages
+  - name: Installing packages
     yum:
       pkg={{item}}
       state=latest
@@ -51,37 +49,37 @@
       - apache2-utils
     when: ansible_os_family == "RedHat"
 
-  - name: apache | Installing mod-wsgi
+  - name: Installing mod-wsgi
     apt:
       pkg=libapache2-mod-wsgi
       state=latest
       update_cache=no
-    when: apache_install_mod-wsgi and ansible_os_family == "RedHat"
+    when: apache_install_mod-wsgi is defined and ansible_os_family == "RedHat"
 
-  - name: apache | Adding localhost directive to apache2.conf
+  - name: Adding localhost directive to apache2.conf
     lineinfile:
       dest=/etc/apache2/apache2.conf
       line="ServerName localhost"
       state=present
 
-  - name: apache | Creating ssl dir in /etc/apache2
+  - name: Creating ssl dir in /etc/apache2
     file:
       path=/etc/apache2/ssl
       owner=root
       group=root
       state=directory
 
-  - name: apache | Enabling apache2 modules
+  - name: Enabling apache2 modules
     command: a2enmod {{item}}
     with_items: apache_modules
 
-  - name: apache | Setting ServerToken
+  - name: Setting ServerToken
     lineinfile:
       dest=/etc/apache2/conf-available/security.conf
       regexp=^ServerTokens
       line="ServerTokens {{apache_server_tokens}}"
 
-  - name: apache | Setting ServerSignature
+  - name: Setting ServerSignature
     lineinfile:
       dest=/etc/apache2/conf-available/security.conf
       regexp=^ServerSignature

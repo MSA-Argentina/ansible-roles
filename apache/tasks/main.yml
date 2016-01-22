@@ -16,8 +16,7 @@
       pkg=libapache2-mod-wsgi
       state=latest
       update_cache=no
-    when: apache_install_mod-wsgi
-    when: ansible_os_family == "Debian"
+    when: apache_install_mod-wsgi and ansible_os_family == "Debian"
 
   - name: apache | Disabling default mpm module
     command: a2dismod mpm_event
@@ -32,16 +31,14 @@
       pkg=libapache2-mod-proxy-uwsgi
       state=latest
       update_cache=no
-    when: apache_install_mod_proxy_uwsgi
-    when: ansible_os_family == "Debian"
+    when: apache_install_mod_proxy_uwsgi and ansible_os_family == "Debian"
 
   - name: apache | Enabling mod-proxy-uwgi
     command: a2enmod {{item}}
     with_items:
       - proxy
       - proxy_uwsgi
-    when: apache_install_mod_proxy_uwsgi
-    when: ansible_os_family == "Debian"
+    when: apache_install_mod_proxy_uwsgi and ansible_os_family == "Debian"
 
   - name: apache | Installing packages
     yum:
@@ -59,8 +56,7 @@
       pkg=libapache2-mod-wsgi
       state=latest
       update_cache=no
-    when: apache_install_mod-wsgi
-    when: ansible_os_family == "RedHat"
+    when: apache_install_mod-wsgi and ansible_os_family == "RedHat"
 
   - name: apache | Adding localhost directive to apache2.conf
     lineinfile:

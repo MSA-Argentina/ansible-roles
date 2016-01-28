@@ -1,5 +1,5 @@
 ---
-  - name: bootstrap | Installing apt packages useful for python development
+  - name: Installing apt packages useful for python development
     apt:
       pkg={{item}}
       state=latest
@@ -14,23 +14,23 @@
       - python-virtualenv
       - sqlite3
 
-  - name: bootstrap | Installing virtualenvwrapper
+  - name: Installing virtualenvwrapper
     pip:
       name=virtualenvwrapper
 
-  - name: bootstrap | Adding WORKON_HOME environment variable
+  - name: Adding WORKON_HOME environment variable
     lineinfile:
       dest=/home/{{remote_user}}/.bashrc
       line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
       state=present
 
-  - name: bootstrap | Sourcing virtualenwrapper in user's bashrc
+  - name: Sourcing virtualenwrapper in bashrc
     lineinfile:
       dest=/home/{{remote_user}}/.bashrc
       line="source /usr/local/bin/virtualenvwrapper.sh"
       state=present
 
-  - name: bootstrap | Creates virtualenv directory
+  - name: Creates virtualenv directory
     file:
       path=/home/{{remote_user}}/{{bootstrap_virtualenv_workon_home}}
       state=directory

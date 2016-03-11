@@ -90,7 +90,6 @@ postgresql_ssl_ciphers:
   - '!EXP'
   - '!MD5'
   - '@STRENGTH'
-postgresql_ssl_renegotiation_limit: 512MB # amount of data between renegotiations
 postgresql_ssl_cert_file: /etc/ssl/certs/ssl-cert-snakeoil.pem
 postgresql_ssl_key_file: /etc/ssl/private/ssl-cert-snakeoil.key
 postgresql_ssl_ca_file: ''

@@ -67,7 +67,6 @@ bonjour_name = '{{postgresql_bonjour_name}}'
 authentication_timeout  = {{postgresql_authentication_timeout}}
 ssl                     = {{'on' if postgresql_ssl else 'off'}}
 ssl_ciphers             = '{{postgresql_ssl_ciphers|join(':')}}'
-ssl_renegotiation_limit = {{postgresql_ssl_renegotiation_limit}}
 ssl_cert_file           = '{{postgresql_ssl_cert_file}}'
 ssl_key_file            = '{{postgresql_ssl_key_file}}'
 ssl_ca_file             = '{{postgresql_ssl_ca_file}}'

@@ -192,7 +192,6 @@ postgresql_commit_siblings:  5      # range 1-1000
 
 # - Checkpoints -
 
-postgresql_checkpoint_segments:          3     # in logfile segments, min 1, 16MB each
 postgresql_checkpoint_timeout:           5min  # range 30s-1h
 postgresql_checkpoint_completion_target: 0.5   # checkpoint target duration, 0.0 - 1.0
 postgresql_checkpoint_warning:           30s   # 0 disables

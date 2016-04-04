@@ -13,10 +13,7 @@
       - python-software-properties
       - python-virtualenv
       - sqlite3
-
-  - name: Installing virtualenvwrapper
-    pip:
-      name=virtualenvwrapper
+      - virtualenvwrapper
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:

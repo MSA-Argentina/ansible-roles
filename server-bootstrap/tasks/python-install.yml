@@ -12,6 +12,7 @@
       - python-pip
       - python-software-properties
       - python-virtualenv
+      - python-setuptools
       - sqlite3
       - virtualenvwrapper
 

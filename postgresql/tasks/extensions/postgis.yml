@@ -5,7 +5,7 @@
     name: "{{item}}"
     state: present
   with_items:
-    - libgeos-c1
+    - libgeos-c1*
     - "postgresql-{{postgresql_version}}-postgis-{{postgresql_ext_postgis_version}}"
   notify:
     - restart postgresql

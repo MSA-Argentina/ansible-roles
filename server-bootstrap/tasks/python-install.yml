@@ -22,12 +22,6 @@
       line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
       state=present
 
-  - name: Sourcing virtualenwrapper in bashrc
-    lineinfile:
-      dest=/home/{{remote_user}}/.bashrc
-      line="source /usr/local/bin/virtualenvwrapper.sh"
-      state=present
-
   - name: Creates virtualenv directory
     file:
       path=/home/{{remote_user}}/{{bootstrap_virtualenv_workon_home}}

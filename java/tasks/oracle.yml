@@ -9,4 +9,4 @@
 - name: Install Oracle Java
   tags: java
   apt: pkg={{item}} update-cache=yes state=latest
-  with_items: java_versions
+  with_items: '{{java_versions}}'

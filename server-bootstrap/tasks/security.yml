@@ -41,5 +41,5 @@
     ufw:
       rule=allow
       port={{item}}
-    with_items: {{bootstrap_ufw_allowed_ports}}
+    with_items: '{{bootstrap_ufw_allowed_ports}}'
 

@@ -2,7 +2,6 @@
   - include: install.yml
   - include: python-install.yml
     when: bootstrap_python_install
-  - include: security.yml
 
   - name: bootstrap | Setting locale
     locale_gen:

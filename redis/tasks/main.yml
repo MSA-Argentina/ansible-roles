@@ -3,6 +3,7 @@
     apt_repository:
       repo={{redis_ppa}}
       state=present
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
 
   - name: redis | Installing redis
     apt:

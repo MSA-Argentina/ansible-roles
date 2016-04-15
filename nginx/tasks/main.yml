@@ -3,12 +3,14 @@
     apt_key:
       url=http://nginx.org/keys/nginx_signing.key
       state=present
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
     
   - name: Adding nginx repository
     apt_repository:
       repo="{{nginx_repository}}"
       update_cache=yes
       state=present
+    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
 
   - name: Installing nginx
     apt:

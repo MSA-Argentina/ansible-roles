@@ -30,14 +30,6 @@
       - "{{uwsgi_apps_available_dir}}"
       - "{{uwsgi_apps_enabled_dir}}"
 
-  - name: Copying upstart file
-    template:
-      src=uwsgi_upstart.conf.j2
-      dest=/etc/init/{{uwsgi_service_name}}.conf
-      owner=root
-      mode=644
-      backup=yes
-
   - name: Copying uwsgi base config
     template:
       src=uwsgi.ini.j2

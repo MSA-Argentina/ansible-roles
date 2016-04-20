@@ -18,7 +18,7 @@
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:
-      dest=/home/{{remote_user}}/.bashrc
+      dest={{ ansible_env.HOME }}/.bashrc
       line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
       state=present
 

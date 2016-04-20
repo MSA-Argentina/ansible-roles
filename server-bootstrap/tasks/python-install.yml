@@ -24,7 +24,7 @@
 
   - name: Creates virtualenv directory
     file:
-      path=/home/{{remote_user}}/{{bootstrap_virtualenv_workon_home}}
+      path={{ ansible_env.HOME }}/{{bootstrap_virtualenv_workon_home}}
       state=directory
       owner={{remote_user}}
 

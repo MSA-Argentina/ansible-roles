@@ -5,6 +5,19 @@
     pkg: "{{item}}"
     state: present
   with_items: ["python-psycopg2", "python-pycurl"]
+  when: ansible_distribution == 'Ubuntu' 
+
+- name: Make sure the dependencies are installed
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items: ["python-psycopg2", "python27-pycurl"]
+  when: ansible_distribution == 'Amazon' 
+
+- name: Adding PostgreSQL repository
+  yum:
+    name: "{{postgresql_yum_repo}}"
+  when: ansible_distribution == 'Amazon' 
 
 - name: Add PostgreSQL repository apt-key
   apt_key:
@@ -17,7 +30,7 @@
   apt_repository:
     repo: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ansible_distribution_release}}-pgdg main {{postgresql_version}}'
     state: present
-    when: ansible_distribution == 'Ubuntu'
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install PostgreSQL
   apt:
@@ -29,3 +42,16 @@
   with_items:
     - "postgresql-{{postgresql_version}}"
     - "postgresql-client-{{postgresql_version}}"
+  when: ansible_distribution == 'Ubuntu' 
+
+- name: Install PostgreSQL
+  yum:
+    name: "{{item}}"
+    state: present
+  environment:
+    LC_ALL: "{{ postgresql_locale }}"
+    LC_LCTYPE: "{{ postgresql_locale }}"
+  with_items:
+    - "postgresql{{postgresql_yum_version}}"
+    - "postgresql{{postgresql_yum_version}}-server"
+  when: ansible_distribution == 'Amazon' 

@@ -6,4 +6,12 @@
     state: present
   notify:
     - restart postgresql
+  when: ansible_distribution == 'Ubuntu'
 
+- name: PostgreSQL | Extensions | Make sure the postgres contrib extensions are installed
+  yum:
+    name: "postgresql{{postgresql_yum_version}}-contrib"
+    state: present
+  notify:
+    - restart postgresql
+  when: ansible_distribution == 'Amazon'

@@ -9,3 +9,15 @@
     - "postgresql-{{postgresql_version}}-postgis-{{postgresql_ext_postgis_version}}"
   notify:
     - restart postgresql
+  when: ansible_distribution == 'Ubuntu'
+
+- name: PostgreSQL | Extensions | Make sure the development headers are installed
+  yum:
+    name: "{{item}}"
+    state: present
+  with_items:
+    - postgis
+    - postgis-utils
+  notify:
+    - restart postgresql
+  when: ansible_distribution == 'Amazon'

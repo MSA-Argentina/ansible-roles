@@ -21,6 +21,7 @@
     yum:
       name={{item}}
       state=latest
+      enablerepo=epel
       update_cache=yes
     with_items:
       - sqlite-devel
@@ -31,6 +32,7 @@
       - python34-virtualenv
       - python34-setuptools
       - sqlite
+      - python-virtualenvwrapper
     when: ansible_distribution == 'Amazon'
 
   - name: Installing virtualenvwrapper

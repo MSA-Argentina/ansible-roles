@@ -20,6 +20,7 @@
       pkg={{item}}
       state=latest
       update_cache=yes
+      enablerepo=epel
     with_items:
       - build-essential
       - bzip2
@@ -37,6 +38,7 @@
     yum:
       name="@Development tools"
       state=present
+      enablerepo=epel
     when: ansible_distribution == 'Amazon'
 
   - name: bootstrap | Installing useful packages for development in the server
@@ -59,6 +61,7 @@
       name={{item}}
       state=latest
       update_cache=yes
+      enablerepo=epel
     with_items:
       - git
       - htop

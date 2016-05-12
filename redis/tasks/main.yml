@@ -12,6 +12,17 @@
       state=present
     notify:
       - restart redis
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: redis | Installing redis
+    yum:
+      name=redis
+      update_cache=yes
+      state=present
+      enablerepo=epel
+    notify:
+      - restart redis
+    when: ansible_distribution == 'Amazon'
 
   - name: redis | Adding a second instance:configuration
     template:
@@ -45,3 +56,14 @@
       name=redis-secondary-server
       state=started
     when: redis_secondary_master == true
+
+  - name: Enabling redis service
+    command:
+      chkconfig redis on
+    when: ansible_distribution == 'Amazon'
+
+  - name: Start redis
+    service:
+      name: redis
+      state: started
+    when: ansible_distribution == 'Amazon'

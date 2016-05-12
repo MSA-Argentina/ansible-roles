@@ -1,10 +1,10 @@
 ---
   #TODO: the script has hardcoded values. Create a module to abstract this functionality.
-  - name: bootstrap | Changing sources to Ubuntu local mirror
+  - name: Changing sources to Ubuntu local mirror
     script: configure_sources.sh
     when: bootstrap_local_sources and ansible_distribution == 'Ubuntu'
 
-  - name: bootstrap | Upgrade system (Ubuntu)
+  - name: Upgrade system (Ubuntu)
     apt:
       upgrade=dist
     when: bootstrap_upgrade_system and ansible_distribution == 'Ubuntu'
@@ -15,12 +15,11 @@
       state=present
     when: ansible_distribution == 'Amazon'
 
-  - name: bootstrap | Installing essential packages to build and run software
+  - name: Installing essential packages to build and run software
     apt:
       pkg={{item}}
       state=latest
       update_cache=yes
-      enablerepo=epel
     with_items:
       - build-essential
       - bzip2
@@ -41,7 +40,7 @@
       enablerepo=epel
     when: ansible_distribution == 'Amazon'
 
-  - name: bootstrap | Installing useful packages for development in the server
+  - name: Installing useful packages for development in the server
     apt:
       pkg={{item}}
       state=latest
@@ -56,7 +55,7 @@
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
 
-  - name: bootstrap | Installing useful packages for development in the server
+  - name: Installing useful packages for development in the server
     yum:
       name={{item}}
       state=latest
@@ -78,7 +77,7 @@
   #     state=present
   #   when: ansible_distribution == 'CentOS'
 
-  - name: bootstrap | Adding nagios plugin
+  - name: Adding nagios plugin
     apt:
       pkg=nagios-plugins
       state=latest
@@ -86,13 +85,13 @@
       install_recommends=no
     when: bootstrap_nagios
 
-  - name: bootstrap | Adding mosh PPA
+  - name: Adding mosh PPA
     apt_repository:
       repo="ppa:keithw/mosh"
       update_cache=yes
     when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
-  - name: bootstrap | Installing mosh
+  - name: Installing mosh
     apt:
       pkg=mosh
       state=latest
@@ -100,7 +99,7 @@
       install_recommends=no
     when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
-  - name: bootstrap | Enabling port(s) for mosh in ufw
+  - name: Enabling port(s) for mosh in ufw
     ufw:
       rule=allow
       port="60000:61000"

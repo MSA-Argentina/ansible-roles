@@ -15,6 +15,28 @@
       - python-setuptools
       - sqlite3
       - virtualenvwrapper
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Installing apt packages useful for python development (CentOS)
+    yum:
+      name={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - sqlite-devel
+      - python-devel
+      - python34
+      - python34-devel
+      - python34-pip
+      - python34-virtualenv
+      - python34-setuptools
+      - sqlite
+    when: ansible_distribution == 'Amazon'
+
+  - name: Installing virtualenvwrapper
+    pip:
+      name=virtualenvwrapper
+    when: ansible_distribution == 'Amazon'
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:

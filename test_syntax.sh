@@ -5,7 +5,6 @@ echo "Testing playbook syntax"
 echo "Versions:"
 echo "Ansible Version: $(ansible --version)"
 echo "Ansible Playbook Version: $(ansible-playbook --version)"
-echo "Vagrant Version: $(vagrant --version)"
 echo "################################"
 
 echo localhost > inventory

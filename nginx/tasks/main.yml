@@ -3,18 +3,32 @@
     apt_key:
       url=http://nginx.org/keys/nginx_signing.key
       state=present
-    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
-    
-  - name: Adding nginx repository
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Adding nginx repository (Ubuntu)
     apt_repository:
       repo="{{nginx_repository}}"
       update_cache=yes
       state=present
-    when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Adding nginx repository (CentOS)
+    copy:
+      src=nginx.repo
+      dest=/etc/yum.repos.d/nginx.repo
+    when: ansible_distribution == 'Amazon'
 
   - name: Installing nginx
     apt:
       pkg=nginx
+      state=present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Installing nginx
+    yum:
+      name=nginx
+      state=present
+    when: ansible_distribution == 'Amazon'
 
   - name: Creating ssl dir
     file:

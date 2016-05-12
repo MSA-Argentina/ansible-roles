@@ -7,7 +7,7 @@
     locale_gen:
       name={{bootstrap_locale}}
       state=present
-    when: bootstrap_set_locale
+    when: bootstrap_set_locale and ansible_distribution == 'Ubuntu'
 
   - name: bootstrap | Setting timezone
     template:
@@ -17,10 +17,17 @@
       group=root
       mode=644
       backup=yes
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: bootstrap | Moving localtime file
+    command:
+      mv /etc/localtime /etc/old.timezone
+    when: ansible_distribution == 'Amazon'
 
   - name: bootstrap | Reconfiguring tzdata
     command:
-      dpkg-reconfigure --frontend noninteractive tzdata
+      ln -s /usr/share/zoneinfo/{{bootstrap_timezone}} /etc/localtime
+    when: ansible_distribution == 'Amazon'
 
   - name: bootstrap | Copying our public key to the server
     authorized_key:

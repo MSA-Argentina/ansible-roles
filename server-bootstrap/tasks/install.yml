@@ -1,13 +1,19 @@
 ---
   #TODO: the script has hardcoded values. Create a module to abstract this functionality.
-  - name: bootstrap | Changing sources to ubuntu local mirror
+  - name: bootstrap | Changing sources to Ubuntu local mirror
     script: configure_sources.sh
-    when: bootstrap_local_sources
+    when: bootstrap_local_sources and ansible_distribution == 'Ubuntu'
 
-  - name: bootstrap | Upgrade system
+  - name: bootstrap | Upgrade system (Ubuntu)
     apt:
       upgrade=dist
-    when: bootstrap_upgrade_system
+    when: bootstrap_upgrade_system and ansible_distribution == 'Ubuntu'
+
+  - name: Add EPEL repository
+    yum:
+      name=epel-release
+      state=present
+    when: ansible_distribution == 'Amazon'
 
   - name: bootstrap | Installing essential packages to build and run software
     apt:
@@ -25,6 +31,13 @@
       - python-software-properties
       - ssl-cert
       - wget
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Install the 'Development tools' package group
+    yum:
+      name="@Development tools"
+      state=present
+    when: ansible_distribution == 'Amazon'
 
   - name: bootstrap | Installing useful packages for development in the server
     apt:
@@ -39,7 +52,28 @@
       - tree
       - multitail
       - unzip
-    when: bootstrap_install_dev_packages
+    when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
+
+  - name: bootstrap | Installing useful packages for development in the server
+    yum:
+      name={{item}}
+      state=latest
+      update_cache=yes
+    with_items:
+      - git
+      - htop
+      - vim
+      - tree
+      - multitail
+      - wget
+      - unzip
+    when: bootstrap_install_dev_packages and ansible_distribution == 'Amazon'
+
+  # - name: Install The Silver Searcher
+  #   yum:
+  #     name=http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
+  #     state=present
+  #   when: ansible_distribution == 'CentOS'
 
   - name: bootstrap | Adding nagios plugin
     apt:
@@ -53,7 +87,7 @@
     apt_repository:
       repo="ppa:keithw/mosh"
       update_cache=yes
-    when: bootstrap_install_mosh
+    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
   - name: bootstrap | Installing mosh
     apt:
@@ -61,11 +95,11 @@
       state=latest
       update_cache=yes
       install_recommends=no
-    when: bootstrap_install_mosh
+    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
   - name: bootstrap | Enabling port(s) for mosh in ufw
     ufw:
       rule=allow
       port="60000:61000"
       proto=udp
-    when: bootstrap_install_mosh
+    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'

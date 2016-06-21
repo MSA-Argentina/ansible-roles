@@ -44,6 +44,6 @@ For example:
 * ```bootstrap_virtualenv_workon_home```: Virtualenv home directory. Default is ```Envs```
 
 ### Security
-* ```bootstrap_ufw_state```: Enable ufw. Default is ```enabled```
+* ```bootstrap_ufw_state```: Enable ufw. Default is ```disabled```
 * ```bootstrap_ufw_allowed_ports```: Enable ports via ufw. It's a yaml list. Default is ```80```
 * ```bootstrap_ubuntu_unattended_upgrades```: Enable ubuntu unattended upgrades. Default is ```true```

@@ -16,7 +16,4 @@ bootstrap_python_install: true
 bootstrap_virtualenv_workon_home: Envs
 
 # Security
-bootstrap_ufw_allowed_ports:
-  - 80
-bootstrap_ufw_state: disabled
 bootstrap_ubuntu_unattended_upgrades: true

@@ -24,6 +24,12 @@
       - restart redis
     when: ansible_distribution == 'Amazon'
 
+  - name: redis | Installing redis
+    pkgng:
+      pkg=redis
+      state=present
+    when: ansible_distribution == 'FreeBSD'
+
   - name: redis | Adding a second instance:configuration
     template:
       src=redis_secondary.conf.j2
@@ -62,8 +68,21 @@
       chkconfig redis on
     when: ansible_distribution == 'Amazon'
 
+  - name: Enabling redis service (FreeBSD)
+    lineinfile:
+      dest=/etc/rc.conf
+      line="redis_enable='YES'"
+      state=present
+    when: ansible_distribution == 'FreeBSD'
+
   - name: Start redis
     service:
       name: redis
       state: started
     when: ansible_distribution == 'Amazon'
+
+  - name: Start redis (FreeBSD)
+    service:
+      name: redis
+      state: started
+    when: ansible_distribution == 'FreeBSD'

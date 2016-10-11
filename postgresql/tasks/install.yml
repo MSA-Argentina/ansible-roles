@@ -14,13 +14,6 @@
   with_items: ["python-psycopg2", "python27-pycurl"]
   when: ansible_distribution == 'Amazon'
 
-- name: Make sure the dependencies are installed
-  pkgng:
-    pkg: "{{item}}"
-    state: present
-  with_items: ["py27-psycopg2", "py27-pycurl"]
-  when: ansible_distribution == 'FreeBSD'
-
 - name: Adding PostgreSQL repository
   yum:
     name: "{{postgresql_yum_repo}}"
@@ -80,4 +73,17 @@
     dest=/etc/rc.conf
     line="postgresql_enable='YES'"
     state=present
+  when: ansible_distribution == 'FreeBSD'
+
+- name: Make sure the dependencies are installed
+  pkgng:
+    pkg: "{{item}}"
+    state: present
+  with_items: ["py27-pycurl"]
+  when: ansible_distribution == 'FreeBSD'
+
+- name: Installing psycopg2
+  pip:
+    name: psycopg2
+    state: present
   when: ansible_distribution == 'FreeBSD'

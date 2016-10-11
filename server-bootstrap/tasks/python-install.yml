@@ -61,6 +61,36 @@
     become: yes
     become_user: "{{remote_user}}"
 
+  - name: Adding WORKON_HOME environment variable
+    lineinfile:
+      dest=/home/{{ remote_user}}/.bash_profile
+      line="WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
+      state=present
+      create=yes
+    become: yes
+    become_user: "{{remote_user}}"
+    when: ansible_distribution == 'FreeBSD'
+
+  - name: Adding VIRTUALENVWRAPPER_PYTHON environment variable
+    lineinfile:
+      dest=/home/{{ remote_user}}/.bash_profile
+      line="VIRTUALENVWRAPPER_PYTHON={{freebsd_python27_path}}"
+      state=present
+      create=yes
+    become: yes
+    become_user: "{{remote_user}}"
+    when: ansible_distribution == 'FreeBSD'
+
+  - name: Sourcing virtualenvwrapper
+    lineinfile:
+      dest=/home/{{ remote_user}}/.bash_profile
+      line="source /usr/local/bin/virtualenvwrapper.sh"
+      state=present
+      create=yes
+    become: yes
+    become_user: "{{remote_user}}"
+    when: ansible_distribution == 'FreeBSD'
+
   - name: Creates virtualenv directory
     file:
       path=/home/{{ remote_user }}/{{bootstrap_virtualenv_workon_home}}

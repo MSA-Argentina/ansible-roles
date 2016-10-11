@@ -17,3 +17,6 @@ bootstrap_virtualenv_workon_home: Envs
 
 # Security
 bootstrap_ubuntu_unattended_upgrades: true
+
+# FreeBSD
+freebsd_python27_path: /usr/local/bin/python2.7

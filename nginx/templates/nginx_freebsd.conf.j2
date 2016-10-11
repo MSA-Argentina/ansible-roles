@@ -34,6 +34,7 @@ http {
     access_log {{nginx_access_log}};
     error_log {{nginx_error_log}};
 
+    include mime.types;
     include {{nginx_freebsd_dir}}/conf.d/*.conf;
     include {{nginx_freebsd_sites_enabled_dir}}/*;
 }

@@ -17,5 +17,5 @@ nginx_ssl_dir: /etc/nginx/ssl
 nginx_freebsd_user: www
 nginx_freebsd_dir: /usr/local/etc/nginx
 nginx_freebsd_ssl_dir: "{{nginx_freebsd_dir}}/ssl"
-nginx_freebsd_sites_available_dir: "{{nginx_freebsd_dir}}/sites_available"
+nginx_freebsd_sites_available_dir: "{{nginx_freebsd_dir}}/sites-available"
 nginx_freebsd_sites_enabled_dir: "{{nginx_freebsd_dir}}/sites-enabled"

@@ -1,6 +1,6 @@
 ---
 # tasks file for uwsgi
-  - name: Installing required apt packages
+  - name: Installing required packages (Ubuntu)
     apt:
       pkg={{item}}
       state=latest
@@ -10,6 +10,15 @@
       - python-dev
       - libpcre3
       - libpcre3-dev
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Installing required packages (FreeBSD)
+    pkgng:
+      name={{item}}
+      state=present
+    with_items:
+      - pcre
+    when: ansible_distribution == 'FreeBSD'
 
   - name: Installing uwsgi
     pip:
@@ -29,6 +38,7 @@
       - "{{uwsgi_config_directory}}"
       - "{{uwsgi_apps_available_dir}}"
       - "{{uwsgi_apps_enabled_dir}}"
+    when: ansible_distribution == 'Ubuntu'
 
   - name: Copying uwsgi base config
     template:
@@ -39,4 +49,28 @@
       backup=yes
     notify:
       - start uwsgi
+    when: ansible_distribution == 'Ubuntu'
 
+  - name: Creating directories (FreeBSD)
+    file:
+      path={{item}}
+      state=directory
+      mode=700
+      owner=root
+    with_items:
+      - "{{uwsgi_log_directory}}"
+      - "{{uwsgi_freebsd_config_directory}}"
+      - "{{uwsgi_freebsd_apps_available_dir}}"
+      - "{{uwsgi_freebsd_apps_enabled_dir}}"
+    when: ansible_distribution == 'FreeBSD'
+
+  - name: Copying uwsgi base config
+    template:
+      src=uwsgi.ini.j2
+      dest={{uwsgi_freebsd_config_directory}}/{{uwsgi_config_file}}
+      owner=root
+      mode=644
+      backup=yes
+    notify:
+      - start uwsgi
+    when: ansible_distribution == 'FreeBSD'

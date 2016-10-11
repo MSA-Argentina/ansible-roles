@@ -42,6 +42,7 @@
       - curl
       - openssl
       - wget
+      - rsync
     when: ansible_distribution == 'FreeBSD'
 
   - name: Install the 'Development tools' package group

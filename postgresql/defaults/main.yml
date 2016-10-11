@@ -3,6 +3,7 @@
 # Basic settings
 postgresql_version: 9.5
 postgresql_yum_version: 94
+postgresql_freebsd_version: 96
 postgresql_encoding: 'UTF-8'
 postgresql_locale: 'en_US.UTF-8'
 
@@ -50,6 +51,7 @@ postgresql_pg_hba_custom: []
 
 # Location of postgres configuration files here
 postgresql_conf_directory: "/etc/postgresql/{{postgresql_version}}/{{postgresql_cluster_name}}"
+postgresql_freebsd_conf_directory: "/var/db/postgres/data{{postgresql_freebsd_version}}"
 # HBA (Host Based Authentication) file
 postgresql_hba_file: "{{postgresql_conf_directory}}/pg_hba.conf"
 # Ident configuration file

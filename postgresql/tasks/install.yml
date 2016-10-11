@@ -5,26 +5,33 @@
     pkg: "{{item}}"
     state: present
   with_items: ["python-psycopg2", "python-pycurl"]
-  when: ansible_distribution == 'Ubuntu' 
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Make sure the dependencies are installed
   yum:
     name: "{{item}}"
     state: present
   with_items: ["python-psycopg2", "python27-pycurl"]
-  when: ansible_distribution == 'Amazon' 
+  when: ansible_distribution == 'Amazon'
+
+- name: Make sure the dependencies are installed
+  pkgng:
+    pkg: "{{item}}"
+    state: present
+  with_items: ["py27-psycopg2", "py27-pycurl"]
+  when: ansible_distribution == 'FreeBSD'
 
 - name: Adding PostgreSQL repository
   yum:
     name: "{{postgresql_yum_repo}}"
-  when: ansible_distribution == 'Amazon' 
+  when: ansible_distribution == 'Amazon'
 
 - name: Add PostgreSQL repository apt-key
   apt_key:
     id: ACCC4CF8
     url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
     state: present
-  when: ansible_distribution == 'Ubuntu' 
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Add PostgreSQL repository
   apt_repository:
@@ -42,7 +49,7 @@
   with_items:
     - "postgresql-{{postgresql_version}}"
     - "postgresql-client-{{postgresql_version}}"
-  when: ansible_distribution == 'Ubuntu' 
+  when: ansible_distribution == 'Ubuntu'
 
 - name: Install PostgreSQL
   yum:
@@ -54,4 +61,23 @@
   with_items:
     - "postgresql{{postgresql_yum_version}}"
     - "postgresql{{postgresql_yum_version}}-server"
-  when: ansible_distribution == 'Amazon' 
+  when: ansible_distribution == 'Amazon'
+
+- name: Install PostgreSQL
+  pkgng:
+    pkg: "{{item}}"
+    state: present
+  environment:
+    LC_ALL: "{{ postgresql_locale }}"
+    LC_LCTYPE: "{{ postgresql_locale }}"
+  with_items:
+    - "postgresql{{postgresql_freebsd_version}}-server"
+    - "postgresql{{postgresql_freebsd_version}}-client"
+  when: ansible_distribution == 'FreeBSD'
+
+- name: Enabling postgresql service (FreeBSD)
+  lineinfile:
+    dest=/etc/rc.conf
+    line="postgresql_enable='YES'"
+    state=present
+  when: ansible_distribution == 'FreeBSD'

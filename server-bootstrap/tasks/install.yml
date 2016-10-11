@@ -15,7 +15,7 @@
       state=present
     when: ansible_distribution == 'Amazon'
 
-  - name: Installing essential packages to build and run software
+  - name: Installing essential packages to build and run software (Ubuntu)
     apt:
       pkg={{item}}
       state=latest
@@ -33,6 +33,17 @@
       - wget
     when: ansible_distribution == 'Ubuntu'
 
+  - name: Installing essential packages to build and run software (FreeBSD)
+    pkgng:
+      name={{item}}
+      state=present
+    with_items:
+      - bzip2
+      - curl
+      - openssl
+      - wget
+    when: ansible_distribution == 'FreeBSD'
+
   - name: Install the 'Development tools' package group
     yum:
       name="@Development tools"
@@ -46,6 +57,7 @@
       state=latest
       update_cache=yes
     with_items:
+      - bash
       - git
       - htop
       - silversearcher-ag
@@ -54,6 +66,20 @@
       - multitail
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
+
+  - name: Installing useful packages for development in the server (FreeBSD)
+    pkgng:
+      pkg={{item}}
+      state=present
+    with_items:
+      - git
+      - htop
+      - the_silver_searcher
+      - vim-lite
+      - tree
+      - multitail
+      - unzip
+    when: bootstrap_install_dev_packages and ansible_distribution == 'FreeBSD'
 
   - name: Installing useful packages for development in the server
     yum:
@@ -70,12 +96,6 @@
       - wget
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Amazon'
-
-  # - name: Install The Silver Searcher
-  #   yum:
-  #     name=http://download.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-  #     state=present
-  #   when: ansible_distribution == 'CentOS'
 
   - name: Adding nagios plugin
     apt:

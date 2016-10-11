@@ -35,6 +35,18 @@
       - python-virtualenvwrapper
     when: ansible_distribution == 'Amazon'
 
+  - name: Installing apt packages useful for python development (FreeBSD)
+    pkgng:
+      pkg={{item}}
+      state=present
+    with_items:
+      - py27-pip
+      - py27-virtualenv
+      - py27-setuptools
+      - sqlite3
+      - py27-virtualenvwrapper
+    when: ansible_distribution == 'FreeBSD'
+
   - name: Installing virtualenvwrapper
     pip:
       name=virtualenvwrapper
@@ -42,13 +54,17 @@
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:
-      dest={{ ansible_env.HOME }}/.bashrc
+      dest=/home/{{ remote_user}}/.bashrc
       line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
       state=present
+      create=yes
+    become: yes
+    become_user: "{{remote_user}}"
 
   - name: Creates virtualenv directory
     file:
       path=/home/{{ remote_user }}/{{bootstrap_virtualenv_workon_home}}
       state=directory
       owner={{remote_user}}
-
+    become: yes
+    become_user: "{{remote_user}}"

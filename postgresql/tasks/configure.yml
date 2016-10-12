@@ -94,14 +94,7 @@
     mode: 0700
   when: ansible_distribution == 'FreeBSD'
 
-- name: Ubuntu | Restart PostgreSQL
+- name: Restart PostgreSQL
   service:
     name: postgresql
     state: restarted
-  when: postgresql_configuration_pt1.changed or postgresql_configuration_pt2.changed and ansible_distribution == 'Ubuntu'
-
-- name: FreeBSD | Restart PostgreSQL
-  service:
-    name: postgresql
-    state: started
-  when: postgresql_configuration_pt1.changed or postgresql_configuration_pt2.changed and ansible_distribution == 'FreeBSD'

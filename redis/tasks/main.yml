@@ -15,16 +15,6 @@
     when: ansible_distribution == 'Ubuntu'
 
   - name: redis | Installing redis
-    yum:
-      name=redis
-      update_cache=yes
-      state=present
-      enablerepo=epel
-    notify:
-      - restart redis
-    when: ansible_distribution == 'Amazon'
-
-  - name: redis | Installing redis
     pkgng:
       pkg=redis
       state=present
@@ -63,23 +53,12 @@
       state=started
     when: redis_secondary_master == true
 
-  - name: Enabling redis service
-    command:
-      chkconfig redis on
-    when: ansible_distribution == 'Amazon'
-
   - name: Enabling redis service (FreeBSD)
     lineinfile:
       dest=/etc/rc.conf
       line="redis_enable='YES'"
       state=present
     when: ansible_distribution == 'FreeBSD'
-
-  - name: Start redis
-    service:
-      name: redis
-      state: started
-    when: ansible_distribution == 'Amazon'
 
   - name: Start redis (FreeBSD)
     service:

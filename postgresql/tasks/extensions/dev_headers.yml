@@ -7,11 +7,3 @@
   notify:
     - restart postgresql
   when: ansible_distribution == 'Ubuntu'
-
-- name: PostgreSQL | Extensions | Make sure the development headers are installed
-  yum:
-    name: libpqxx-devel
-    state: present
-  notify:
-    - restart postgresql
-  when: ansible_distribution == 'Amazon'

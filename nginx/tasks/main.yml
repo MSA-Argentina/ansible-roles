@@ -12,23 +12,11 @@
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Adding nginx repository (CentOS)
-    copy:
-      src=nginx.repo
-      dest=/etc/yum.repos.d/nginx.repo
-    when: ansible_distribution == 'Amazon'
-
   - name: Installing nginx
     apt:
       pkg=nginx
       state=present
     when: ansible_distribution == 'Ubuntu'
-
-  - name: Installing nginx
-    yum:
-      name=nginx
-      state=present
-    when: ansible_distribution == 'Amazon'
 
   - name: Installing nginx
     pkgng:

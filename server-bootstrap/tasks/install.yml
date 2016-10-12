@@ -9,12 +9,6 @@
       upgrade=dist
     when: bootstrap_upgrade_system and ansible_distribution == 'Ubuntu'
 
-  - name: Amazon | Add EPEL repository
-    yum:
-      name=epel-release
-      state=present
-    when: ansible_distribution == 'Amazon'
-
   - name: Ubuntu | Installing essential packages to build and run software
     apt:
       pkg={{item}}
@@ -45,13 +39,6 @@
       - rsync
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Amazon | Install the 'Development tools' package group
-    yum:
-      name="@Development tools"
-      state=present
-      enablerepo=epel
-    when: ansible_distribution == 'Amazon'
-
   - name: Ubuntu | Installing useful packages for development in the server
     apt:
       pkg={{item}}
@@ -81,22 +68,6 @@
       - multitail
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'FreeBSD'
-
-  - name: Amazon | Installing useful packages for development in the server
-    yum:
-      name={{item}}
-      state=latest
-      update_cache=yes
-      enablerepo=epel
-    with_items:
-      - git
-      - htop
-      - vim
-      - tree
-      - multitail
-      - wget
-      - unzip
-    when: bootstrap_install_dev_packages and ansible_distribution == 'Amazon'
 
   - name: Adding nagios plugin
     apt:

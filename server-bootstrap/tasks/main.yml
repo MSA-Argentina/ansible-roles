@@ -19,16 +19,6 @@
       backup=yes
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Amazon | Moving localtime file
-    command:
-      mv /etc/localtime /etc/old.timezone
-    when: ansible_distribution == 'Amazon'
-
-  - name: Amazon | Reconfiguring tzdata
-    command:
-      ln -s /usr/share/zoneinfo/{{bootstrap_timezone}} /etc/localtime
-    when: ansible_distribution == 'Amazon'
-
   - name: FreeBSD | Reconfiguring tzdata
     copy:
       src=/usr/share/zoneinfo/{{bootstrap_timezone}}

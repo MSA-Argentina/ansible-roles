@@ -17,24 +17,6 @@
       - virtualenvwrapper
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Amazon | Installing apt packages useful for python development
-    yum:
-      name={{item}}
-      state=latest
-      enablerepo=epel
-      update_cache=yes
-    with_items:
-      - sqlite-devel
-      - python-devel
-      - python34
-      - python34-devel
-      - python34-pip
-      - python34-virtualenv
-      - python34-setuptools
-      - sqlite
-      - python-virtualenvwrapper
-    when: ansible_distribution == 'Amazon'
-
   - name: FreeBSD | Installing packages useful for python development
     pkgng:
       pkg={{item}}
@@ -47,11 +29,6 @@
       - py27-virtualenvwrapper
       - python35
     when: ansible_distribution == 'FreeBSD'
-
-  - name: Amazon | Installing virtualenvwrapper
-    pip:
-      name=virtualenvwrapper
-    when: ansible_distribution == 'Amazon'
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:

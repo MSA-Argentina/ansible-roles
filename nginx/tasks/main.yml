@@ -1,37 +1,37 @@
 ---
-  - name: Adding repo key
+  - name: Ubuntu | Adding repo key
     apt_key:
       url=http://nginx.org/keys/nginx_signing.key
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Adding nginx repository (Ubuntu)
+  - name: Ubuntu | Adding nginx repository
     apt_repository:
       repo="{{nginx_repository}}"
       update_cache=yes
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Installing nginx
+  - name: Ubuntu | Installing nginx
     apt:
       pkg=nginx
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Installing nginx
+  - name: FreeBSD | Installing nginx
     pkgng:
       name=nginx
       state=present
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Enabling nginx service (FreeBSD)
+  - name: FreeBSD | Enabling nginx service
     lineinfile:
       dest=/etc/rc.conf
       line="nginx_enable='YES'"
       state=present
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Creating SSL dir
+  - name: Ubuntu | Creating SSL dir
     file:
       path="{{nginx_ssl_dir}}"
       state=directory
@@ -39,7 +39,7 @@
       mode=770
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Creating SSL dir (FreeBSD)
+  - name: FreeBSD | Creating SSL dir
     file:
       path="{{nginx_freebsd_ssl_dir}}"
       state=directory
@@ -47,7 +47,7 @@
       mode=770
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Creating sites-available dir
+  - name: Ubuntu | Creating sites-available dir
     file:
       path=/etc/nginx/sites-available
       state=directory
@@ -55,7 +55,7 @@
       mode=770
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Creating sites-enabled dir
+  - name: Ubuntu | Creating sites-enabled dir
     file:
       path=/etc/nginx/sites-enabled
       state=directory
@@ -63,7 +63,7 @@
       mode=770
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Creating sites-available dir
+  - name: FreeBSD | Creating sites-available dir
     file:
       path="{{nginx_freebsd_sites_available_dir}}"
       state=directory
@@ -71,7 +71,7 @@
       mode=770
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Creating sites-enabled dir
+  - name: FreeBSD | Creating sites-enabled dir
     file:
       path="{{nginx_freebsd_sites_enabled_dir}}"
       state=directory
@@ -79,7 +79,7 @@
       mode=770
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Creating conf.d dir
+  - name: FreeBSD | Creating conf.d dir
     file:
       path="{{nginx_freebsd_dir}}/conf.d"
       state=directory
@@ -87,7 +87,7 @@
       mode=770
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Copying nginx.conf
+  - name: Ubuntu | Copying nginx.conf
     template:
       src=nginx.conf.j2
       dest=/etc/nginx/nginx.conf
@@ -96,7 +96,7 @@
       mode=0644
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Copying nginx.conf
+  - name: FreeBSD | Copying nginx.conf
     template:
       src=nginx_freebsd.conf.j2
       dest="{{nginx_freebsd_dir}}/nginx.conf"
@@ -105,13 +105,13 @@
       mode=0644
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Deleting default conf file
+  - name: Ubuntu | Deleting default conf file
     file:
       path=/etc/nginx/conf.d/default.conf
       state=absent
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Adding security config to conf.d
+  - name: Ubuntu | Adding security config to conf.d
     template:
       src=security.conf.j2
       dest=/etc/nginx/conf.d/security.conf
@@ -120,7 +120,7 @@
       mode=0644
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Adding gzip config to conf.d
+  - name: Ubuntu | Adding gzip config to conf.d
     template:
       src=gzip.conf.j2
       dest=/etc/nginx/conf.d/gzip.conf
@@ -131,7 +131,7 @@
     notify:
       - restart nginx
 
-  - name: Adding security config to conf.d
+  - name: FreeBSD | Adding security config to conf.d
     template:
       src=security.conf.j2
       dest=/etc/nginx/conf.d/security.conf
@@ -141,7 +141,7 @@
       mode=0644
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Adding gzip config to conf.d
+  - name: FreeBSD | Adding gzip config to conf.d
     template:
       src=gzip.conf.j2
       dest="{{nginx_freebsd_dir}}/conf.d/gzip.conf"

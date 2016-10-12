@@ -1,11 +1,11 @@
 ---
-  - name: redis | Adding redis PPA
+  - name: Ubuntu | Adding redis PPA
     apt_repository:
       repo={{redis_ppa}}
       state=present
     when: ansible_distribution == 'Ubuntu' and ansible_distribution_release != 'xenial'
 
-  - name: redis | Installing redis
+  - name: Ubuntu | Installing redis
     apt:
       name=redis-server
       update_cache=yes
@@ -14,20 +14,20 @@
       - restart redis
     when: ansible_distribution == 'Ubuntu'
 
-  - name: redis | Installing redis
+  - name: FreeBSD | Installing redis
     pkgng:
       pkg=redis
       state=present
     when: ansible_distribution == 'FreeBSD'
 
-  - name: redis | Adding a second instance:configuration
+  - name: Adding a second instance:configuration
     template:
       src=redis_secondary.conf.j2
       dest=/etc/redis/redis_secondary.conf
       backup=yes
     when: redis_secondary_master == true
 
-  - name: redis | Adding a second instance:cache directory
+  - name: Adding a second instance:cache directory
     file:
       path=/var/lib/redis-secondary
       state=directory
@@ -35,7 +35,7 @@
       group=redis
     when: redis_secondary_master == true
 
-  - name: redis | Adding a second instance:init script
+  - name: Adding a second instance:init script
     template:
       src=redis-secondary-server
       dest=/etc/init.d/redis-secondary-server
@@ -43,24 +43,24 @@
       mode=0755
     when: redis_secondary_master == true
 
-  - name: redis | Adding a second instance:starting on boot
+  - name: Adding a second instance:starting on boot
     shell: update-rc.d redis-secondary-server defaults
     when: redis_secondary_master == true
 
-  - name: redis | Adding a second instance:starting service now
+  - name: Adding a second instance:starting service now
     service:
       name=redis-secondary-server
       state=started
     when: redis_secondary_master == true
 
-  - name: Enabling redis service (FreeBSD)
+  - name: FreeBSD | Enabling redis service
     lineinfile:
       dest=/etc/rc.conf
       line="redis_enable='YES'"
       state=present
     when: ansible_distribution == 'FreeBSD'
 
-  - name: Start redis (FreeBSD)
+  - name: FreeBSD | Start redis
     service:
       name: redis
       state: started

@@ -3,13 +3,13 @@
   - include: python-install.yml
     when: bootstrap_python_install
 
-  - name: Setting locale
+  - name: Ubuntu | Setting locale
     locale_gen:
       name={{bootstrap_locale}}
       state=present
     when: bootstrap_set_locale and ansible_distribution == 'Ubuntu'
 
-  - name: Setting timezone
+  - name: Ubuntu | Setting timezone
     template:
       dest=/etc/timezone
       src=timezone.j2
@@ -19,15 +19,34 @@
       backup=yes
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Moving localtime file
+  - name: Amazon | Moving localtime file
     command:
       mv /etc/localtime /etc/old.timezone
     when: ansible_distribution == 'Amazon'
 
-  - name: Reconfiguring tzdata
+  - name: Amazon | Reconfiguring tzdata
     command:
       ln -s /usr/share/zoneinfo/{{bootstrap_timezone}} /etc/localtime
     when: ansible_distribution == 'Amazon'
+
+  - name: FreeBSD | Reconfiguring tzdata
+    copy:
+      src=/usr/share/zoneinfo/{{bootstrap_timezone}}
+      dest=/etc/localtime
+      remote_src=yes
+      force=yes
+      backup=yes
+    when: ansible_distribution == 'FreeBSD'
+
+  - name: FreeBSD | Setting locale
+    template:
+      dest="/home/{{remote_user}}/.login_conf"
+      src=login_conf.j2
+      owner="{{remote_user}}"
+      group="{{remote_user}}"
+      mode=644
+      backup=yes
+    when: ansible_distribution == 'FreeBSD'
 
   - name: Copying our public key to the server
     authorized_key:

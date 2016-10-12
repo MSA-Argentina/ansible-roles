@@ -1,38 +1,24 @@
-# file: postgresql/tasks/install.yml
-
-- name: Make sure the dependencies are installed
+- name: Ubuntu | Make sure the dependencies are installed
   apt:
     pkg: "{{item}}"
     state: present
   with_items: ["python-psycopg2", "python-pycurl"]
   when: ansible_distribution == 'Ubuntu'
 
-- name: Make sure the dependencies are installed
-  yum:
-    name: "{{item}}"
-    state: present
-  with_items: ["python-psycopg2", "python27-pycurl"]
-  when: ansible_distribution == 'Amazon'
-
-- name: Adding PostgreSQL repository
-  yum:
-    name: "{{postgresql_yum_repo}}"
-  when: ansible_distribution == 'Amazon'
-
-- name: Add PostgreSQL repository apt-key
+- name: Ubuntu | Add PostgreSQL repository apt-key
   apt_key:
     id: ACCC4CF8
     url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
     state: present
   when: ansible_distribution == 'Ubuntu'
 
-- name: Add PostgreSQL repository
+- name: Ubuntu | Add PostgreSQL repository
   apt_repository:
     repo: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ansible_distribution_release}}-pgdg main {{postgresql_version}}'
     state: present
   when: ansible_distribution == 'Ubuntu'
 
-- name: Install PostgreSQL
+- name: Ubuntu | Install PostgreSQL
   apt:
     name: "{{item}}"
     state: present
@@ -44,19 +30,7 @@
     - "postgresql-client-{{postgresql_version}}"
   when: ansible_distribution == 'Ubuntu'
 
-- name: Install PostgreSQL
-  yum:
-    name: "{{item}}"
-    state: present
-  environment:
-    LC_ALL: "{{ postgresql_locale }}"
-    LC_LCTYPE: "{{ postgresql_locale }}"
-  with_items:
-    - "postgresql{{postgresql_yum_version}}"
-    - "postgresql{{postgresql_yum_version}}-server"
-  when: ansible_distribution == 'Amazon'
-
-- name: Install PostgreSQL
+- name: FreeBSD | Install PostgreSQL
   pkgng:
     pkg: "{{item}}"
     state: present
@@ -68,21 +42,21 @@
     - "postgresql{{postgresql_freebsd_version}}-client"
   when: ansible_distribution == 'FreeBSD'
 
-- name: Enabling postgresql service (FreeBSD)
+- name: FreeBSD | Enabling postgresql service
   lineinfile:
     dest=/etc/rc.conf
     line="postgresql_enable='YES'"
     state=present
   when: ansible_distribution == 'FreeBSD'
 
-- name: Make sure the dependencies are installed
+- name: FreeBSD | Make sure the dependencies are installed
   pkgng:
     pkg: "{{item}}"
     state: present
   with_items: ["py27-pycurl"]
   when: ansible_distribution == 'FreeBSD'
 
-- name: Installing psycopg2
+- name: FreeBSD | Installing psycopg2
   pip:
     name: psycopg2
     state: present

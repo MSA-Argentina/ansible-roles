@@ -1,6 +1,6 @@
 # Ansible roles [![Build Status](https://travis-ci.org/MSA-Argentina/ansible-roles.svg?branch=master)](https://travis-ci.org/MSA-Argentina/ansible-roles)
 
-Some useful roles to speed up deployments with Ansible. Requires Ansible 2.0+ and Ubuntu 16.04.
+Some useful roles to speed up deployments with Ansible. Requires Ansible 2.0+ and Ubuntu 16.04. Most roles also work in FreeBSD (tested in 10.3+)
 
 ## How to use
 * Clone this repo

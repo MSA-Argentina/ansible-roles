@@ -94,6 +94,12 @@
     mode: 0700
   when: ansible_distribution == 'FreeBSD'
 
+- name: FreeBSD | Start PostgreSQL
+  service:
+    name: postgresql
+    state: started
+  when: ansible_distribution == 'FreeBSD'
+
 - name: Restart PostgreSQL
   service:
     name: postgresql

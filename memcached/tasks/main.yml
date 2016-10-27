@@ -2,12 +2,12 @@
 
 - name: Install the memcached packages 
   yum: name={{ item }} state=present
-  with_items: memcached_redhat_pkgs
+  with_items: "{{memcached_redhat_pkgs}}"
   when: ansible_os_family == "RedHat"
 
 - name: Install the memcached packages 
   apt: name={{ item }} state=present update_cache=yes
-  with_items: memcached_ubuntu_pkgs
+  with_items: "{{memcached_ubuntu_pkgs}}"
   environment:
     RUNLEVEL: 1
   when: ansible_os_family == "Debian"

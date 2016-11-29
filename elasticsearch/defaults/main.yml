@@ -1,4 +1,8 @@
 ---
-es_version: 1.4
+es_version: 5.0.1
+es_deb_package: "elasticsearch-{{es_version}}.deb"
+es_download_url: "https://artifacts.elastic.co/downloads/elasticsearch/{{es_deb_package}}"
 elasticsearch_network_host: 127.0.0.1
 elasticsearch_http_host: 127.0.0.1
+
+es_max_ram: 256m

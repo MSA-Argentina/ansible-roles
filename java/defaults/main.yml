@@ -1,3 +1,7 @@
 ---
+# Which Java?
+install_openjdk: false
+install_oracle_java: true
+
 java_versions:
     - oracle-java8-installer

@@ -30,6 +30,11 @@
       - python35
     when: ansible_distribution == 'FreeBSD'
 
+  - name: Updating pip
+    pip:
+      name=pip
+      state=latest
+
   - name: Adding WORKON_HOME environment variable
     lineinfile:
       dest=/home/{{ remote_user}}/.bashrc

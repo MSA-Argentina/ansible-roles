@@ -1,0 +1,23 @@
+---
+  - name: Ubuntu | Adding PostgreSQL repo key
+    apt_key:
+      id: ACCC4CF8
+      url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+      state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Adding PostgreSQL repo
+    apt_repository:
+      repo: 'deb http://apt.postgresql.org/pub/repos/apt/ {{ansible_distribution_release}}-pgdg main {{postgresql_version}}'
+      state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Installing psql
+    apt:
+      name={{item}}
+      state=present
+      update_cache=yes
+    with_items:
+      - postgresql-client-{{postgresql_version}}
+      - libpq-dev
+    when: ansible_distribution == 'Ubuntu'

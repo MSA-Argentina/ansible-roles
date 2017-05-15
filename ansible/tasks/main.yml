@@ -1,0 +1,13 @@
+---
+  - name: Ubuntu | Adding Ansible PPA
+    apt_repository:
+      repo={{ansible_ppa}}
+      state=present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Installing Ansible
+    apt:
+      name=ansible
+      update_cache=yes
+      state=present
+    when: ansible_distribution == 'Ubuntu'

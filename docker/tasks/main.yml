@@ -1,0 +1,33 @@
+---
+  - name: Ubuntu | Adding Docker repo key
+    apt_key:
+      id: 58118E89F3A912897C070ADBF76221572C52609D
+      keyserver: "hkp://p80.pool.sks-keyservers.net:80"
+      state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Adding Docker repo
+    apt_repository:
+      repo: "deb https://apt.dockerproject.org/repo ubuntu-xenial main"
+      state: present
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Installing Docker engine
+    apt:
+      name={{item}}
+      state=present
+      update_cache=yes
+    with_items:
+      - docker-engine
+    when: ansible_distribution == 'Ubuntu'
+
+  - name: Ubuntu | Installing docker-compose
+    pip:
+      name=docker-compose
+      state=latest
+
+  - name: Ubuntu | Adding remote user to docker group
+    user:
+      name={{remote_user}}
+      groups=docker
+      append=yes

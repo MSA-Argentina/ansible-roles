@@ -52,6 +52,7 @@
       - vim
       - tree
       - multitail
+      - most
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
 
@@ -66,6 +67,7 @@
       - vim-lite
       - tree
       - multitail
+      - most
       - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'FreeBSD'
 

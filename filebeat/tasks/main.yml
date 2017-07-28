@@ -1,0 +1,22 @@
+---
+  - name: filebeat | Adding filebeat repository
+    apt_repository:
+      repo='{{filebeat_repository}}'
+      state=present
+
+  - name: filebeat | Adding filebeat repository key
+    apt_key:
+      url={{filebeat_apt_key}}
+      state=present
+
+  - name: filebeat | Installing filebeat dependencies
+    apt:
+      name=apt-transport-https
+      update_cache=yes
+      state=present
+
+  - name: filebeat | Installing filebeat
+    apt:
+      name=filebeat
+      update_cache=yes
+      state=present

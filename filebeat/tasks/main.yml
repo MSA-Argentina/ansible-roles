@@ -20,3 +20,4 @@
       name=filebeat
       update_cache=yes
       state=present
+      force=yes

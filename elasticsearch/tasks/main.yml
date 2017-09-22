@@ -22,7 +22,7 @@
     state=started
 
 - name: Installing plugins
-  include: plugins.yml
+  import_tasks: plugins.yml
 
 - name: Copy configuration template
   template:

@@ -1,9 +1,9 @@
 # file: postgresql/tasks/main.yml
 
-- include: install.yml
-- include: extensions.yml
-- include: configure.yml
-- include: databases.yml
-- include: users.yml
-- include: pgbouncer.yml
+- import_tasks: install.yml
+- import_tasks: extensions.yml
+- import_tasks: configure.yml
+- import_tasks: databases.yml
+- import_tasks: users.yml
+- import_tasks: pgbouncer.yml
   when: postgresql_install_pgbouncer is defined and postgresql_install_pgbouncer == true

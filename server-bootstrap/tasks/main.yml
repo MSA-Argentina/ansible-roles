@@ -1,6 +1,6 @@
 ---
-  - include: install.yml
-  - include: python-install.yml
+  - import_tasks: install.yml
+  - import_tasks: python-install.yml
     when: bootstrap_python_install
 
   - name: Ubuntu | Setting locale

@@ -1,18 +1,18 @@
 ---
 
 # Head plugin
-- include: plugins/head.yml
+- import_tasks: plugins/head.yml
   when: es_install_head is defined and es_install_head
 
 # Marvel plugin
-- include: plugins/marvel.yml
+- import_tasks: plugins/marvel.yml
   when: es_install_marvel is defined and es_install_marvel
 
 # ElasticHQ plugin
-- include: plugins/elastichq.yml
+- import_tasks: plugins/elastichq.yml
   when: es_install_eshq is defined and es_install_eshq
 
 # Curator tool
-- include: plugins/curator.yml
+- import_tasks: plugins/curator.yml
   when: es_install_curator is defined and es_install_curator
 

@@ -14,7 +14,6 @@
       - python-virtualenv
       - python-setuptools
       - sqlite3
-      - virtualenvwrapper
     when: ansible_distribution == 'Ubuntu'
 
   - name: FreeBSD | Installing packages useful for python development
@@ -26,13 +25,17 @@
       - py27-virtualenv
       - py27-setuptools
       - sqlite3
-      - py27-virtualenvwrapper
       - python35
     when: ansible_distribution == 'FreeBSD'
 
   - name: Updating pip
     pip:
       name=pip
+      state=latest
+
+  - name: Installing virtualenvwrapper via pip
+    pip:
+      name=virtualenvwrapper
       state=latest
 
   - name: Adding WORKON_HOME environment variable

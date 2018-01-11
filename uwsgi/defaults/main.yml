@@ -9,6 +9,7 @@ uwsgi_executable: /usr/local/bin/uwsgi
 uwsgi_log_directory: /var/log/uwsgi
 uwsgi_log_file: "{{uwsgi_log_directory}}/uwsgi-emperor.log"
 uwsgi_service_name: uwsgi
+uwsgi_systemd: false
 
 uwsgi_freebsd_apps_available_dir: /usr/local/etc/uwsgi/apps_available
 uwsgi_freebsd_apps_enabled_dir: /usr/local/etc/uwsgi/apps_enabled

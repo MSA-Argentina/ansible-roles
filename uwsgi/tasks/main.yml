@@ -74,3 +74,18 @@
     notify:
       - start uwsgi
     when: ansible_distribution == 'FreeBSD'
+
+  - name: Add uwsgi systemd unit file
+    become: yes
+    template:
+        src: uwsgi_systemd.service.j2
+        dest: "/etc/systemd/system/{{uwsgi_service_name}}.service"
+    when: uwsgi_systemd == true
+
+  - name: Enable and start uwsgi systemd
+    become: yes
+    service:
+      name: "{{uwsgi_service_name}}.service"
+      enabled: yes
+      state: started
+    when: uwsgi_systemd == true

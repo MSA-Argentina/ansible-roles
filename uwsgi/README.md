@@ -35,3 +35,4 @@ For example:
 * ```uwsgi_config_directory```: Sets the base config dir. Default is ```/etc/uwsgi```
 * ```uwsgi_log_directory```: Sets the default log directory. Default is ```/var/log/uwsgi```
 * ```uwsgi_service_name```: Sets the Upstart service name. Default is ```uwsgi```
+* ```uwsgi_systemd```: If true use systemd, create service {{uwsgi_service_name}}.service . Default is ```false```

@@ -36,3 +36,4 @@ For example:
 * ```uwsgi_log_directory```: Sets the default log directory. Default is ```/var/log/uwsgi```
 * ```uwsgi_service_name```: Sets the Upstart service name. Default is ```uwsgi```
 * ```uwsgi_systemd```: If true use systemd, create service {{uwsgi_service_name}}.service . Default is ```false```
+* ```uwsgi_python3```: If true use pip3 to install uwsgi. Default is ```false```

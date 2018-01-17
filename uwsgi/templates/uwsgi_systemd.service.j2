@@ -4,8 +4,11 @@ After=syslog.target
 
 [Service]
 ExecStart=/usr/local/bin/uwsgi --ini /etc/uwsgi/uwsgi.ini
+User=root
+Group=www-data
 # Requires systemd version 211 or newer
 RuntimeDirectory=uwsgi
+RuntimeDirectoryMode=0775
 Restart=always
 KillSignal=SIGQUIT
 Type=notify

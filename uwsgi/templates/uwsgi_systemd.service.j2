@@ -1,6 +1,9 @@
 [Unit]
 Description=uWSGI Emperor
-After=syslog.target
+After={{uwsgi_systemd_after}}
+{% if uwsgi_systemd_requires %}
+Requires={{uwsgi_systemd_requires}}
+{% endif %}
 
 [Service]
 ExecStart=/usr/local/bin/uwsgi --ini /etc/uwsgi/uwsgi.ini

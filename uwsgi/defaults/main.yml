@@ -10,6 +10,8 @@ uwsgi_log_directory: /var/log/uwsgi
 uwsgi_log_file: "{{uwsgi_log_directory}}/uwsgi-emperor.log"
 uwsgi_service_name: uwsgi
 uwsgi_systemd: false
+uwsgi_systemd_after: "syslog.target"
+uwsgi_systemd_requires: ""
 uwsgi_python3: false
 
 uwsgi_freebsd_apps_available_dir: /usr/local/etc/uwsgi/apps_available

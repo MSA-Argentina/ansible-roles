@@ -1,0 +1,17 @@
+---
+jenkins_connection_delay: 5
+jenkins_connection_retries: 60
+jenkins_hostname: localhost
+jenkins_http_port: 8080
+jenkins_jar_location: /opt/jenkins-cli.jar
+jenkins_plugins:
+  - git
+  - sonar
+  - ssh
+jenkins_url_prefix: ""
+
+# debian/ubuntu specific
+jenkins_repo_url: deb http://pkg.jenkins.io/debian-stable binary/
+jenkins_repo_key_url: https://pkg.jenkins.io/debian/jenkins.io.key
+jenkins_init_file: /etc/default/jenkins
+jenkins_http_port_param: HTTP_PORT

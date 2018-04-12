@@ -25,3 +25,4 @@ roles_path = /path/to/cloned_repo
 * Memcached role from https://github.com/bennojoy/memcached
 * ElasticSearch role from https://github.com/deimosfr/ansible-elasticsearch
 * Java role from https://github.com/vrischmann/ansible-role-java
+* Jenkins role from https://github.com/binarytemple/ansible-role-jenkins.git

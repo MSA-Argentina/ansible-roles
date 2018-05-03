@@ -23,3 +23,25 @@
 
 - name: Ensure Node.js and npm are installed.
   apt: "name=nodejs={{ nodejs_version|regex_replace('x', '') }}* state=present"
+
+- name: Add yarn apt key.
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: Add repositories for yarn
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+  with_items:
+    - "deb https://dl.yarnpkg.com/debian/ stable main"
+  register: yarn_repo
+
+- name: Update apt cache if repo was added.
+  apt: update_cache=yes
+  when: yarn_repo.changed
+
+- name: Ensure yarn is installed.
+  apt:
+    name: yarn
+    state: present

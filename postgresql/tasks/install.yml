@@ -1,8 +1,11 @@
 - name: Ubuntu | Make sure the dependencies are installed
   apt:
-    pkg: "{{item}}"
+    name: "{{packages}}"
     state: present
-  with_items: ["python-psycopg2", "python-pycurl"]
+  vars:
+    packages:
+      - python-psycopg2
+      - python-pycurl
   when: ansible_distribution == 'Ubuntu'
 
 - name: Ubuntu | Add PostgreSQL repository apt-key
@@ -20,26 +23,28 @@
 
 - name: Ubuntu | Install PostgreSQL
   apt:
-    name: "{{item}}"
+    name: "{{packages}}"
     state: present
   environment:
     LC_ALL: "{{ postgresql_locale }}"
     LC_LCTYPE: "{{ postgresql_locale }}"
-  with_items:
-    - "postgresql-{{postgresql_version}}"
-    - "postgresql-client-{{postgresql_version}}"
+  vars:
+    packages:
+      - "postgresql-{{postgresql_version}}"
+      - "postgresql-client-{{postgresql_version}}"
   when: ansible_distribution == 'Ubuntu'
 
 - name: FreeBSD | Install PostgreSQL
   pkgng:
-    pkg: "{{item}}"
+    pkg: "{{packages}}"
     state: present
   environment:
     LC_ALL: "{{ postgresql_locale }}"
     LC_LCTYPE: "{{ postgresql_locale }}"
-  with_items:
-    - "postgresql{{postgresql_freebsd_version}}-server"
-    - "postgresql{{postgresql_freebsd_version}}-client"
+  vars:
+    packages:
+      - "postgresql{{postgresql_freebsd_version}}-server"
+      - "postgresql{{postgresql_freebsd_version}}-client"
   when: ansible_distribution == 'FreeBSD'
 
 - name: FreeBSD | Enabling postgresql service

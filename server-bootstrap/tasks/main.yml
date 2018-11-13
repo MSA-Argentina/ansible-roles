@@ -30,10 +30,10 @@
 
   - name: FreeBSD | Setting locale
     template:
-      dest="/home/{{remote_user}}/.login_conf"
+      dest="/home/{{usuario_remoto}}/.login_conf"
       src=login_conf.j2
-      owner="{{remote_user}}"
-      group="{{remote_user}}"
+      owner="{{usuario_remoto}}"
+      group="{{usuario_remoto}}"
       mode=644
       backup=yes
     when: ansible_distribution == 'FreeBSD'
@@ -47,7 +47,7 @@
 
   - name: Copying our public key to the server
     authorized_key:
-      user="{{remote_user}}"
+      user="{{usuario_remoto}}"
       key="{{item}}"
     with_file:
       - "{{ local_home }}/.ssh/id_rsa.pub"

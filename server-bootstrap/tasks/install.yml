@@ -11,64 +11,68 @@
 
   - name: Ubuntu | Installing essential packages to build and run software
     apt:
-      pkg={{item}}
+      pkg="{{packages}}"
       state=latest
       update_cache=yes
-    with_items:
-      - build-essential
-      - bzip2
-      - curl
-      - libssl-dev
-      - locales
-      - ntp
-      - openssl
-      - python-software-properties
-      - ssl-cert
-      - wget
+    vars:
+      packages:
+        - build-essential
+        - bzip2
+        - curl
+        - libssl-dev
+        - locales
+        - ntp
+        - openssl
+        - python-software-properties
+        - ssl-cert
+        - wget
     when: ansible_distribution == 'Ubuntu'
 
   - name: FreeBSD | Installing essential packages to build and run software
     pkgng:
-      name={{item}}
+      pkg="{{packages}}"
       state=present
-    with_items:
-      - bzip2
-      - curl
-      - openssl
-      - wget
-      - rsync
+    vars:
+      packages:
+        - bzip2
+        - curl
+        - openssl
+        - wget
+        - rsync
     when: ansible_distribution == 'FreeBSD'
 
   - name: Ubuntu | Installing useful packages for development in the server
     apt:
-      pkg={{item}}
+      pkg="{{packages}}"
       state=latest
       update_cache=yes
-    with_items:
-      - bash
-      - git
-      - htop
-      - silversearcher-ag
-      - vim
-      - tree
-      - multitail
-      - most
-      - unzip
+    vars:
+        packages:
+          - bash
+          - git
+          - htop
+          - silversearcher-ag
+          - vim
+          - tree
+          - multitail
+          - most
+          - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
 
   - name: FreeBSD | Installing useful packages for development in the server
     pkgng:
       pkg={{item}}
       state=present
-    with_items:
-      - git
-      - htop
-      - the_silver_searcher
-      - vim-lite
-      - tree
-      - multitail
-      - most
-      - unzip
+    vars:
+      packages:
+        - git
+        - htop
+        - the_silver_searcher
+        - vim-lite
+        - tree
+        - multitail
+        - most
+        - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'FreeBSD'
 
   - name: Adding nagios plugin

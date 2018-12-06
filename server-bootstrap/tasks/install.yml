@@ -23,7 +23,7 @@
         - locales
         - ntp
         - openssl
-        - python-software-properties
+        - software-properties-common
         - ssl-cert
         - wget
     when: ansible_distribution == 'Ubuntu'

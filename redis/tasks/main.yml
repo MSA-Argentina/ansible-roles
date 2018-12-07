@@ -65,3 +65,9 @@
       name: redis
       state: started
     when: ansible_distribution == 'FreeBSD'
+
+  - name: Ubuntu | Start redis
+    service:
+      name: redis-server
+      state: started
+    when: ansible_distribution == 'Ubuntu'

@@ -7,7 +7,7 @@
     vars:
       packages:
         - libsqlite3-dev
-        - python-apt
+        - python-apt-common
         - python-dev
         - python3-dev
         - python-pip

@@ -1,13 +1,12 @@
 ---
   - name: Installing packages
     apt:
-      pkg={{item}}
-      state=latest
-      update_cache=yes
-    with_items:
-      - apache2
-      - apache2-utils
-      - apache2-mpm-{{apache_mpm}}
+      pkg:
+        - apache2
+        - apache2-utils
+        - apache2-mpm-{{apache_mpm}}
+      state: latest
+      update_cache: yes
     when: ansible_os_family == "Debian"
 
   - name: Installing mod-wsgi

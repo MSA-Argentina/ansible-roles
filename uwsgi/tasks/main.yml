@@ -1,11 +1,9 @@
 ---
   - name: Installing required packages (Ubuntu)
     apt:
-      pkg="{{packages}}"
-      state=latest
-      update_cache=yes
-    vars:
-      packages:
+      state: latest
+      update_cache: yes
+      pkg:
         - build-essential
         - python-dev
         - libpcre3
@@ -14,11 +12,9 @@
 
   - name: Installing required packages python3 (Ubuntu)
     apt:
-      pkg="{{packages}}"
-      state=latest
-      update_cache=yes
-    vars:
-      packages:
+      state: latest
+      update_cache: yes
+      pkg:
         - python3
         - python3-setuptools
         - python3-pip

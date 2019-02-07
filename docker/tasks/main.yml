@@ -14,11 +14,9 @@
 
   - name: Ubuntu | Installing Docker engine
     apt:
-      name={{item}}
+      name=docker-engine
       state=present
       update_cache=yes
-    with_items:
-      - docker-engine
     when: ansible_distribution == 'Ubuntu'
 
   - name: Ubuntu | Installing docker-compose

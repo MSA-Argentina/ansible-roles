@@ -1,5 +1,5 @@
 [databases]
-{{postgresql_pgbouncer_database}} =
+{{postgresql_pgbouncer_database}} = auth_user=auth_user
 
 [pgbouncer]
 
@@ -29,8 +29,17 @@ unix_socket_dir = /var/run/postgresql
 ;;;
 
 ; any, trust, plain, crypt, md5
-auth_type = trust
+auth_type = md5
 auth_file = /etc/pgbouncer/userlist.txt
+
+;; Path to HBA-style auth config
+;auth_hba_file =
+
+;; Query to use to fetch password from database.  Result
+;; mus2t have 2 columns - username and password hash.
+
+auth_user = auth_user
+auth_query = SELECT usename, passwd FROM pg_shadow WHERE usename=$1
 
 ;;;
 ;;; Users allowed into database 'pgbouncer'

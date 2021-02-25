@@ -1,8 +1,8 @@
 ---
   #TODO: the script has hardcoded values. Create a module to abstract this functionality.
-  - name: Ubuntu | Changing sources to Ubuntu local mirror
-    script: configure_sources.sh
-    when: bootstrap_local_sources and ansible_distribution == 'Ubuntu'
+  # - name: Ubuntu | Changing sources to Ubuntu local mirror
+  #   script: configure_sources.sh
+  #   when: bootstrap_local_sources and ansible_distribution == 'Ubuntu'
 
   - name: Ubuntu | Upgrade system
     apt:
@@ -79,23 +79,23 @@
       install_recommends=no
     when: bootstrap_nagios
 
-  - name: Ubuntu | Adding mosh PPA
-    apt_repository:
-      repo="ppa:keithw/mosh"
-      update_cache=yes
-    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
+  # - name: Ubuntu | Adding mosh PPA
+  #   apt_repository:
+  #     repo="ppa:keithw/mosh"
+  #     update_cache=yes
+  #   when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
-  - name: Ubuntu | Installing mosh
-    apt:
-      pkg=mosh
-      state=latest
-      update_cache=yes
-      install_recommends=no
-    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
+  # - name: Ubuntu | Installing mosh
+  #   apt:
+  #     pkg=mosh
+  #     state=latest
+  #     update_cache=yes
+  #     install_recommends=no
+  #   when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
 
-  - name: Ubuntu | Enabling port(s) for mosh in ufw
-    ufw:
-      rule=allow
-      port="60000:61000"
-      proto=udp
-    when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'
+  # - name: Ubuntu | Enabling port(s) for mosh in ufw
+  #   ufw:
+  #     rule=allow
+  #     port="60000:61000"
+  #     proto=udp
+  #   when: bootstrap_install_mosh and ansible_distribution == 'Ubuntu'

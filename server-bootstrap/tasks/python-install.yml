@@ -10,10 +10,12 @@
         - python-apt-common
         - python-dev
         - python3-dev
-        - python-pip
+        - python3-pip
         - software-properties-common
-        - python-virtualenv
+        - python3-virtualenv
+        - virtualenv
         - python-setuptools
+        - python3-setuptools
         - sqlite3
     when: ansible_distribution == 'Ubuntu'
 

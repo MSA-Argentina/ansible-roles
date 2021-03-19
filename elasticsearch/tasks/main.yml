@@ -16,6 +16,14 @@
     deb="/tmp/{{es_deb_package}}"
   when: elasticsearch_check_deb
 
+- name: Recursively change ownership of /usr/share/elasticsearch
+  file:
+    path: /usr/share/elasticsearch
+    state: directory
+    recurse: yes
+    owner: elasticsearch
+    group: elasticsearch
+
 - name: Ensuring the service is started
   service:
     name=elasticsearch

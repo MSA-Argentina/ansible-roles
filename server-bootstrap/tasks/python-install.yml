@@ -10,35 +10,18 @@
         - python-apt-common
         - python-dev
         - python3-dev
-        - python-pip
+        - python3-pip
         - software-properties-common
-        - python-virtualenv
-        - python-setuptools
+        - python3-virtualenv
+        - python3-setuptools
         - sqlite3
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Installing packages useful for python development
-    pkgng:
-      pkg={{item}}
-      state=present
-    vars:
-      packages:
-        - py27-pip
-        - py27-virtualenv
-        - py27-setuptools
-        - sqlite3
-        - python35
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: Updating pip
-    pip:
-      name=pip
-      state=latest
-
-  - name: Installing virtualenvwrapper via pip
-    pip:
-      name=virtualenvwrapper
-      state=latest
+  # - name: Updating pip
+  #   pip:
+  #     name=pip
+  #     state=latest
+  #     executable=pip3
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:
@@ -48,36 +31,6 @@
       create=yes
     become: yes
     become_user: "{{usuario_remoto}}"
-
-  - name: FreeBSD | Adding WORKON_HOME environment variable
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Adding VIRTUALENVWRAPPER_PYTHON environment variable
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="VIRTUALENVWRAPPER_PYTHON={{freebsd_python27_path}}"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Source virtualenvwrapper
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="source /usr/local/bin/virtualenvwrapper.sh"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
 
   - name: Creating virtualenv directory
     file:

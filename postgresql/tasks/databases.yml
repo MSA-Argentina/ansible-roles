@@ -16,15 +16,6 @@
   with_items: '{{ postgresql_databases }}'
   when: postgresql_databases|length > 0 and ansible_distribution == 'Ubuntu'
 
-- name: FreeBSD | Make sure the PostgreSQL databases are present
-  postgresql_db:
-    name: "{{item.name}}"
-    encoding: "{{postgresql_encoding}}"
-    template: "template0"
-    state: present
-  with_items: '{{ postgresql_databases }}'
-  when: postgresql_databases|length > 0 and ansible_distribution == 'FreeBSD'
-
 - name: Add hstore to the databases with the requirement
   become: yes
   become_user: "{{postgresql_admin_user}}"

@@ -8,6 +8,7 @@
   - name: supervisor | Installing supervisor with pip
     pip:
       name=supervisor
+      executable=pip3
 
   - name: supervisor | Copying Upstart script for supervisor
     template:

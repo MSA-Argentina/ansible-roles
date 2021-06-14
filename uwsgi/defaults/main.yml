@@ -13,7 +13,3 @@ uwsgi_systemd: false
 uwsgi_systemd_after: "syslog.target"
 uwsgi_systemd_requires: ""
 uwsgi_python3: false
-
-uwsgi_freebsd_apps_available_dir: /usr/local/etc/uwsgi/apps_available
-uwsgi_freebsd_apps_enabled_dir: /usr/local/etc/uwsgi/apps_enabled
-uwsgi_freebsd_config_directory: /usr/local/etc/uwsgi

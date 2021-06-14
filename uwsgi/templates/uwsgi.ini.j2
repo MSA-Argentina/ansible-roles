@@ -1,8 +1,6 @@
 [uwsgi]
 {% if ansible_distribution == 'Ubuntu' %}
 emperor = {{uwsgi_apps_enabled_dir}}
-{% elif ansible_distribution == 'FreeBSD' %}
-emperor = {{uwsgi_freebsd_apps_enabled_dir}}
 {% endif %}
 logger = file:{{uwsgi_log_file}}
 

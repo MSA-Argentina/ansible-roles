@@ -26,19 +26,6 @@
         - wget
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Installing essential packages to build and run software
-    pkgng:
-      pkg="{{packages}}"
-      state=present
-    vars:
-      packages:
-        - bzip2
-        - curl
-        - openssl
-        - wget
-        - rsync
-    when: ansible_distribution == 'FreeBSD'
-
   - name: Ubuntu | Installing useful packages for development in the server
     apt:
       state: latest
@@ -54,22 +41,6 @@
         - most
         - unzip
     when: bootstrap_install_dev_packages and ansible_distribution == 'Ubuntu'
-
-  - name: FreeBSD | Installing useful packages for development in the server
-    pkgng:
-      pkg={{item}}
-      state=present
-    vars:
-      packages:
-        - git
-        - htop
-        - the_silver_searcher
-        - vim-lite
-        - tree
-        - multitail
-        - most
-        - unzip
-    when: bootstrap_install_dev_packages and ansible_distribution == 'FreeBSD'
 
   - name: Adding nagios plugin
     apt:

@@ -22,18 +22,13 @@
       - ansible_distribution == 'Ubuntu'
       - uwsgi_python3 == true
 
-  - name: Installing required packages (FreeBSD)
-    pkgng:
-      name="pcre"
-      state=present
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: Installing uwsgi
-    pip:
-      name:
-        - uwsgi
-        - uwsgitop
-    when: uwsgi_python3 == false
+  # - name: Installing uwsgi
+  #   pip:
+  #     name:
+  #       - uwsgi
+  #       - uwsgitop
+  #     executable: pip3
+  #   when: uwsgi_python3 == false
 
   - name: Installing uwsgi python3
     pip:
@@ -66,30 +61,6 @@
     notify:
       - start uwsgi
     when: ansible_distribution == 'Ubuntu'
-
-  - name: Creating directories (FreeBSD)
-    file:
-      path={{item}}
-      state=directory
-      mode=700
-      owner=root
-    with_items:
-      - "{{uwsgi_log_directory}}"
-      - "{{uwsgi_freebsd_config_directory}}"
-      - "{{uwsgi_freebsd_apps_available_dir}}"
-      - "{{uwsgi_freebsd_apps_enabled_dir}}"
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: Copying uwsgi base config
-    template:
-      src=uwsgi.ini.j2
-      dest={{uwsgi_freebsd_config_directory}}/{{uwsgi_config_file}}
-      owner=root
-      mode=644
-      backup=yes
-    notify:
-      - start uwsgi
-    when: ansible_distribution == 'FreeBSD'
 
   - name: Add uwsgi systemd unit file
     become: yes

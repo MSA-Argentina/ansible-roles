@@ -1,9 +1,5 @@
 # file: postgresql/tasks/configure.yml
 
-- name: FreeBSD | Start the cluster
-  shell: "/usr/local/etc/rc.d/postgresql initdb"
-  when: ansible_distribution == 'FreeBSD'
-  ignore_errors: yes
 
 - name: Make sure the postgres data directory exists
   file:
@@ -36,17 +32,6 @@
   register: postgresql_configuration_pt1
   when: ansible_distribution == 'Ubuntu'
 
-- name: FreeBSD | Update configuration - pt. 1 (pg_hba.conf)
-  template:
-    src: pg_hba.conf.j2
-    dest: "{{postgresql_freebsd_conf_directory}}/pg_hba.conf"
-    owner: "{{postgresql_admin_user}}"
-    group: "{{postgresql_admin_user}}"
-    mode: 0640
-    backup: yes
-  register: postgresql_configuration_pt1
-  when: ansible_distribution == 'FreeBSD'
-
 - name: Ubuntu | Update configuration - pt. 2 (postgresql.conf)
   template:
     src: postgresql.conf.j2
@@ -58,17 +43,6 @@
   register: postgresql_configuration_pt2
   when: ansible_distribution == 'Ubuntu'
 
-- name: FreeBSD | Update configuration - pt. 2 (postgresql.conf)
-  template:
-    src: postgresql_freebsd.conf.j2
-    dest: "{{postgresql_freebsd_conf_directory}}/postgresql.conf"
-    owner: "{{postgresql_admin_user}}"
-    group: "{{postgresql_admin_user}}"
-    mode: 0640
-    backup: yes
-  register: postgresql_configuration_pt2
-  when: ansible_distribution == 'FreeBSD'
-
 - name: Create folder for additional configuration files
   file:
     name: "{{postgresql_conf_directory}}/conf.d"
@@ -76,29 +50,6 @@
     owner: "{{postgresql_admin_user}}"
     group: "{{postgresql_admin_user}}"
     mode: 0755
-
-- name: FreeBSD | Create folder for additional configuration files
-  file:
-    name: "{{postgresql_freebsd_conf_directory}}/conf.d"
-    state: directory
-    owner: "{{postgresql_admin_user}}"
-    group: "{{postgresql_admin_user}}"
-    mode: 0755
-  when: ansible_distribution == 'FreeBSD'
-
-- name: FreeBSD | Set owner to postgresql user
-  file:
-    path: "{{postgresql_freebsd_conf_directory}}"
-    owner: "{{postgresql_admin_user}}"
-    recurse: yes
-    mode: 0700
-  when: ansible_distribution == 'FreeBSD'
-
-- name: FreeBSD | Start PostgreSQL
-  service:
-    name: postgresql
-    state: started
-  when: ansible_distribution == 'FreeBSD'
 
 - name: Restart PostgreSQL
   service:

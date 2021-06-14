@@ -18,19 +18,6 @@
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Installing nginx
-    pkgng:
-      name=nginx
-      state=present
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Enabling nginx service
-    lineinfile:
-      dest=/etc/rc.conf
-      line="nginx_enable='YES'"
-      state=present
-    when: ansible_distribution == 'FreeBSD'
-
   - name: Ubuntu | Creating SSL dir
     file:
       path="{{nginx_ssl_dir}}"
@@ -38,14 +25,6 @@
       owner=root
       mode=770
     when: ansible_distribution == 'Ubuntu'
-
-  - name: FreeBSD | Creating SSL dir
-    file:
-      path="{{nginx_freebsd_ssl_dir}}"
-      state=directory
-      owner=root
-      mode=770
-    when: ansible_distribution == 'FreeBSD'
 
   - name: Ubuntu | Creating sites-available dir
     file:
@@ -63,30 +42,6 @@
       mode=770
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Creating sites-available dir
-    file:
-      path="{{nginx_freebsd_sites_available_dir}}"
-      state=directory
-      owner=root
-      mode=770
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Creating sites-enabled dir
-    file:
-      path="{{nginx_freebsd_sites_enabled_dir}}"
-      state=directory
-      owner=root
-      mode=770
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Creating conf.d dir
-    file:
-      path="{{nginx_freebsd_dir}}/conf.d"
-      state=directory
-      owner=root
-      mode=770
-    when: ansible_distribution == 'FreeBSD'
-
   - name: Ubuntu | Copying nginx.conf
     template:
       src=nginx.conf.j2
@@ -95,15 +50,6 @@
       owner=root
       mode=0644
     when: ansible_distribution == 'Ubuntu'
-
-  - name: FreeBSD | Copying nginx.conf
-    template:
-      src=nginx_freebsd.conf.j2
-      dest="{{nginx_freebsd_dir}}/nginx.conf"
-      backup=yes
-      owner=root
-      mode=0644
-    when: ansible_distribution == 'FreeBSD'
 
   - name: Ubuntu | Deleting default conf file
     file:
@@ -128,27 +74,6 @@
       owner=root
       mode=0644
     when: ansible_distribution == 'Ubuntu'
-    notify:
-      - restart nginx
-
-  - name: FreeBSD | Adding security config to conf.d
-    template:
-      src=security.conf.j2
-      dest=/etc/nginx/conf.d/security.conf
-      dest="{{nginx_freebsd_dir}}/conf.d/security.conf"
-      backup=yes
-      owner=root
-      mode=0644
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Adding gzip config to conf.d
-    template:
-      src=gzip.conf.j2
-      dest="{{nginx_freebsd_dir}}/conf.d/gzip.conf"
-      backup=yes
-      owner=root
-      mode=0644
-    when: ansible_distribution == 'FreeBSD'
     notify:
       - restart nginx
 

@@ -48,8 +48,6 @@
       owner=root
       mode=644
       backup=yes
-    notify:
-      - start uwsgi
     when: ansible_distribution == 'Ubuntu'
 
   - name: Add uwsgi systemd unit file

@@ -12,4 +12,3 @@ uwsgi_service_name: uwsgi
 uwsgi_systemd: false
 uwsgi_systemd_after: "syslog.target"
 uwsgi_systemd_requires: ""
-uwsgi_python3: false

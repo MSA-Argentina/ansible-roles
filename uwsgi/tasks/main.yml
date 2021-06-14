@@ -20,15 +20,6 @@
         - python3-pip
     when:
       - ansible_distribution == 'Ubuntu'
-      - uwsgi_python3 == true
-
-  # - name: Installing uwsgi
-  #   pip:
-  #     name:
-  #       - uwsgi
-  #       - uwsgitop
-  #     executable: pip3
-  #   when: uwsgi_python3 == false
 
   - name: Installing uwsgi python3
     pip:
@@ -36,7 +27,6 @@
         - uwsgi
         - uwsgitop
       executable: pip3
-    when: uwsgi_python3 == true
 
   - name: Creating directories
     file:

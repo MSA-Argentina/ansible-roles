@@ -38,4 +38,3 @@ For example:
 * ```uwsgi_systemd```: If true use systemd, create service {{uwsgi_service_name}}.service . Default is ```false```
 * ```uwsgi_systemd_after```: Services After systemd option, str with space sep. Default is ```"syslog.target"``` 
 * ```uwsgi_systemd_requires```: Services Requires sysmted option, str with space sep. Default is None, not add this option if not explicit override.
-* ```uwsgi_python3```: If true use pip3 to install uwsgi. Default is ```false```

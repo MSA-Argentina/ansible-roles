@@ -17,25 +17,39 @@
         - sqlite3
     when: ansible_distribution == 'Ubuntu'
 
-  # - name: Updating pip
-  #   pip:
-  #     name=pip
-  #     state=latest
-  #     executable=pip3
+  - name: Check python version installed
+    setup:
+      filter:
+        - 'ansible_python_version'
+    register: setup
+
+
+  - name: Shows Python Version installed
+    debug:
+      msg: La versión de python instalada es {{ setup['ansible_facts']['ansible_python_version'] }}
+
+  - name: Updating pip
+    pip:
+      name=pip
+      state=latest
+      executable=pip3
+
+  - import_tasks: manual-pip-install.yml
+    when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] == "5"
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bashrc
-      line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
+      dest=/home/{{ bootstrap_usuario_remoto }}/.bashrc
+      line="export WORKON_HOME=~/{{ bootstrap_virtualenv_workon_home }}"
       state=present
       create=yes
     become: yes
-    become_user: "{{usuario_remoto}}"
+    become_user: "{{ bootstrap_usuario_remoto }}"
 
   - name: Creating virtualenv directory
     file:
-      path=/home/{{ usuario_remoto }}/{{bootstrap_virtualenv_workon_home}}
+      path=/home/{{ bootstrap_usuario_remoto }}/{{ bootstrap_virtualenv_workon_home }}
       state=directory
-      owner={{usuario_remoto}}
+      owner={{ bootstrap_usuario_remoto }}
     become: yes
-    become_user: "{{usuario_remoto}}"
+    become_user: "{{ bootstrap_usuario_remoto }}"

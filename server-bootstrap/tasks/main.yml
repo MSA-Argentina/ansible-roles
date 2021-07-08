@@ -28,7 +28,7 @@
 
   - name: Copying our public key to the server
     authorized_key:
-      user="{{usuario_remoto}}"
+      user="{{bootstrap_usuario_remoto}}"
       key="{{item}}"
     with_file:
       - "{{ local_home }}/.ssh/id_rsa.pub"

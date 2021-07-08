@@ -1,5 +1,6 @@
 ---
 # General
+bootstrap_usuario_remoto: ansible 
 bootstrap_copy_publickey: false
 bootstrap_install_dev_packages: true
 bootstrap_local_sources: false
@@ -18,4 +19,3 @@ bootstrap_virtualenv_workon_home: Envs
 
 # Security
 bootstrap_ubuntu_unattended_upgrades: true
-

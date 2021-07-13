@@ -1,0 +1,15 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include postgresql"
+      include_role:
+        name: "postgresql"
+      vars:
+        postgresql_ext_install_contrib: yes
+        postgresql_ext_install_dev_headers: yes
+        postgresql_ext_install_postgis: yes
+        postgresql_databases:
+          - name: sigel_operaciones
+            pgcrypto: yes
+            postgis: yes

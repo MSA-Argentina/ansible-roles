@@ -19,12 +19,10 @@
 
   - name: Check python version installed
     setup:
-      filter:
-        - 'ansible_python_version'
+      filter: 'ansible_python_version'
     register: setup
 
-
-  - name: Shows Python Version installed
+  - name: Show Python Version installed
     debug:
       msg: La versión de python instalada es {{ setup['ansible_facts']['ansible_python_version'] }}
 

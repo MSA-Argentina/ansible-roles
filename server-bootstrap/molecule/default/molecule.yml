@@ -4,7 +4,7 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: instance
+  - name: ubuntu16
     image: docker.io/ubuntu:16.04
     pre_build_image: false
     command: bash -c 'while true; do sleep 1; done'
@@ -16,15 +16,16 @@ provisioner:
   name: ansible
   #inventory:
     #host_vars:
-      ## setting for the platform instance named 'instance'
-      #instance:
+      ## setting for the platform instance named 'ubuntu16'
+      #ubuntu16:
         #ansible_user: ansible
   lint:
       name: ansible-lint
 verifier:
   name: testinfra
-  lint:
-    name: flake8
+  options:
+    sudo: true
+    v: 1
 lint: |
   set -e
   yamllint .

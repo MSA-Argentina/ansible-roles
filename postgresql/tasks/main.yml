@@ -6,4 +6,4 @@
 - import_tasks: databases.yml
 - import_tasks: users.yml
 - import_tasks: pgbouncer.yml
-  when: postgresql_install_pgbouncer is defined and postgresql_install_pgbouncer == true
+  when: postgresql_install_pgbouncer == true

@@ -25,6 +25,21 @@
     group: "{{postgresql_admin_user}}"
     mode: 0640
 
+- name: PostgreSQL | Make sure the auth user is present
+  postgresql_user:
+    name: "{{ postgresql_pgbouncer_auth_user.name }}"
+    password: "{{ postgresql_pgbouncer_auth_user.pass | default('pass')}}"
+    state: present
+    login_host: localhost
+    role_attr_flags: "LOGIN"
+
+- name: PostgreSQL | Grant auth_user permissions on table pg_shadow
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
+  shell: "psql -c 'GRANT SELECT ON pg_shadow TO {{ postgresql_pgbouncer_auth_user.name }}' {{ item.name }}"
+  with_items: '{{ postgresql_databases }}'
+  when: postgresql_databases|length > 0 
+
 - name: PostgreSQL | Defaults file for pgbouncer
   lineinfile:
     create: yes

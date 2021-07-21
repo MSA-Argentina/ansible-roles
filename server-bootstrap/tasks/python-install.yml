@@ -31,6 +31,7 @@
       name=pip
       state=latest
       executable=pip3
+    when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] | int > 5
 
   - import_tasks: manual-pip-install.yml
     when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] == "5"

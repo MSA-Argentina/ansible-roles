@@ -10,7 +10,7 @@ testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
 @pytest.mark.parametrize('name', [
     "libsqlite3-dev",
     "python-apt-common",
-    "python-dev",
+    #"python-dev",
     "python3-dev",
     "python3-pip",
     "software-properties-common",

@@ -603,6 +603,8 @@ postgresql_pgbouncer_port: 6432
 postgresql_pgbouncer_listen_address: 127.0.0.1
 postgresql_pgbouncer_log_file: '/var/log/postgresql/pgbouncer.log'
 postgresql_pgbouncer_pid_file: '/var/run/postgresql/pgbouncer.pid'
+postgresql_pgbouncer_users: []
+postgresql_pgbouncer_database: '*'
 postgresql_pgbouncer_auth_user: 
   name: auth_user
   pass: auth_user

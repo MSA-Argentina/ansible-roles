@@ -1,0 +1,47 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: ubuntu
+    image: docker.io/ubuntu:${UBUNTU_VERSION:-16.04}
+    pre_build_image: false
+    command: bash -c 'while true; do sleep 1; done'
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+provisioner:
+  name: ansible
+  #inventory:
+    #host_vars:
+      ## setting for the platform instance named 'ubuntu'
+      #ubuntu:
+        #ansible_user: ansible
+  lint:
+      name: ansible-lint
+verifier:
+  name: testinfra
+  options:
+    sudo: true
+    v: 1
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+  flake8
+scenario:
+  name: default
+  test_sequence:
+    #- lint
+    - destroy
+    #- dependency
+    - syntax
+    - create
+    - prepare
+    - converge
+    #- idempotence
+    #- side_effect
+    - verify
+    - destroy

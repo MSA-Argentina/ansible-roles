@@ -41,7 +41,7 @@
     dest: "{{postgresql_conf_directory}}/postgresql.conf"
     owner: "{{postgresql_admin_user}}"
     group: "{{postgresql_admin_user}}"
-    mode: 0640
+    mode: 0644
     backup: yes
   register: postgresql_configuration_pt2
   when: ansible_distribution == 'Ubuntu'

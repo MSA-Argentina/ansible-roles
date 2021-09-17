@@ -4,8 +4,8 @@
     state: present
   vars:
     packages:
-      - python-psycopg2
-      - python-pycurl
+      - python3-psycopg2
+      - python3-pycurl
   when: ansible_distribution == 'Ubuntu'
 
 - name: Ubuntu | Add PostgreSQL repository apt-key

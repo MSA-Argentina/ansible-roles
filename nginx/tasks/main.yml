@@ -5,13 +5,6 @@
       state=present
     when: ansible_distribution == 'Ubuntu'
 
-  - name: Ubuntu | Adding nginx repository
-    apt_repository:
-      repo="{{nginx_repository}}"
-      update_cache=yes
-      state=present
-    when: ansible_distribution == 'Ubuntu'
-
   - name: Ubuntu | Installing nginx
     apt:
       pkg=nginx

@@ -1,14 +1,10 @@
 ---
-  - name: Ubuntu | Adding repo key
-    apt_key:
-      url=http://nginx.org/keys/nginx_signing.key
-      state=present
-    when: ansible_distribution == 'Ubuntu'
-
   - name: Ubuntu | Installing nginx
     apt:
-      pkg=nginx
-      state=present
+      state: present
+      update_cache: yes
+      pkg:
+        - nginx
     when: ansible_distribution == 'Ubuntu'
 
   - name: FreeBSD | Installing nginx

@@ -3,10 +3,18 @@
   - import_tasks: python-install.yml
     when: bootstrap_python_install
 
-  - name: Ubuntu | Setting locale
+  - name: Ensure basic locales exists
     locale_gen:
-      name={{bootstrap_locale}}
-      state=present
+      name: "{{item}}"
+      state: present
+    with_items:
+      - en_US.UTF-8
+      - es_AR.UTF-8
+
+  - name: Ubuntu | Ensure locale exists
+    locale_gen:
+      name: "{{ bootstrap_locale }}"
+      state: present
     when: bootstrap_set_locale and ansible_distribution == 'Ubuntu'
 
   - name: Ubuntu | Setting timezone
@@ -19,36 +27,17 @@
       backup=yes
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Reconfiguring tzdata
-    copy:
-      src=/usr/share/zoneinfo/{{bootstrap_timezone}}
-      dest=/etc/localtime
-      remote_src=yes
-      force=yes
-      backup=yes
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Setting locale
-    template:
-      dest="/home/{{usuario_remoto}}/.login_conf"
-      src=login_conf.j2
-      owner="{{usuario_remoto}}"
-      group="{{usuario_remoto}}"
-      mode=644
-      backup=yes
-    when: ansible_distribution == 'FreeBSD'
-
   - name: Ubuntu | Set vm.swappiness to 0 in /etc/sysctl.conf
     sysctl:
       name=vm.swappiness
-      value={{bootstrap_swappiness}}
+      value={{ bootstrap_swappiness }}
       state=present
     when: ansible_distribution == 'Ubuntu'
 
   - name: Copying our public key to the server
     authorized_key:
-      user="{{usuario_remoto}}"
-      key="{{item}}"
+      user="{{ bootstrap_usuario_remoto }}"
+      key="{{ item }}"
     with_file:
       - "{{ local_home }}/.ssh/id_rsa.pub"
     when: bootstrap_copy_publickey

@@ -1,0 +1,10 @@
+---
+  - name: Manual pip install | Download pip installer
+    get_url:
+      url=https://bootstrap.pypa.io/pip/3.5/get-pip.py
+      dest=/tmp/get-pip.py
+      mode=0440
+
+  - name: Manual Pip Install | Do Install
+    command: python3.5 /tmp/get-pip.py 
+    # TODO: chequear que no ejecute el script si ya se cuenta con la ultima version de pip (test de idempotencia)

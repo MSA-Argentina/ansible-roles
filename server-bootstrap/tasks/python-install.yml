@@ -19,72 +19,38 @@
         - sqlite3
     when: ansible_distribution == 'Ubuntu'
 
-  - name: FreeBSD | Installing packages useful for python development
-    pkgng:
-      pkg={{item}}
-      state=present
-    vars:
-      packages:
-        - py27-pip
-        - py27-virtualenv
-        - py27-setuptools
-        - sqlite3
-        - python35
-    when: ansible_distribution == 'FreeBSD'
+  - name: Check python version installed
+    setup:
+      filter: 'ansible_python_version'
+    register: setup
+
+  - name: Show Python Version installed
+    debug:
+      msg: La versión de python instalada es {{ setup['ansible_facts']['ansible_python_version'] }}
 
   - name: Updating pip
     pip:
       name=pip
       state=latest
+      executable=pip3
+    when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] | int > 5
 
-  - name: Installing virtualenvwrapper via pip
-    pip:
-      name=virtualenvwrapper
-      state=latest
+  - import_tasks: manual-pip-install.yml
+    when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] == "5"
 
   - name: Adding WORKON_HOME environment variable
     lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bashrc
-      line="export WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
+      dest=/home/{{ bootstrap_usuario_remoto }}/.bashrc
+      line="export WORKON_HOME=~/{{ bootstrap_virtualenv_workon_home }}"
       state=present
       create=yes
     become: yes
-    become_user: "{{usuario_remoto}}"
-
-  - name: FreeBSD | Adding WORKON_HOME environment variable
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="WORKON_HOME=~/{{bootstrap_virtualenv_workon_home}}"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Adding VIRTUALENVWRAPPER_PYTHON environment variable
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="VIRTUALENVWRAPPER_PYTHON={{freebsd_python27_path}}"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
-
-  - name: FreeBSD | Source virtualenvwrapper
-    lineinfile:
-      dest=/home/{{ usuario_remoto}}/.bash_profile
-      line="source /usr/local/bin/virtualenvwrapper.sh"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{usuario_remoto}}"
-    when: ansible_distribution == 'FreeBSD'
+    become_user: "{{ bootstrap_usuario_remoto }}"
 
   - name: Creating virtualenv directory
     file:
-      path=/home/{{ usuario_remoto }}/{{bootstrap_virtualenv_workon_home}}
+      path=/home/{{ bootstrap_usuario_remoto }}/{{ bootstrap_virtualenv_workon_home }}
       state=directory
-      owner={{usuario_remoto}}
+      owner={{ bootstrap_usuario_remoto }}
     become: yes
-    become_user: "{{usuario_remoto}}"
+    become_user: "{{ bootstrap_usuario_remoto }}"

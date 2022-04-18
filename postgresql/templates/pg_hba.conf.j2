@@ -17,7 +17,12 @@
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 
 # Default:
-{% for connection in postgresql_pg_hba_default %}
+{% if postgresql_install_pgbouncer %}
+  {% set pg_hba_default = postgresql_pgbouncer_pg_hba_default %}
+{% else %}
+  {% set pg_hba_default = postgresql_pg_hba_default %}
+{% endif %}
+{% for connection in pg_hba_default %}
 # {{connection.comment}}
 {{connection.type}}  {{connection.database}}  {{connection.user}}  {{connection.address}}  {{connection.method}}
 {% endfor %}

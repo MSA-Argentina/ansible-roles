@@ -599,11 +599,17 @@ postgresql_restart_after_crash: on
 #------------------------------------------------------------------------------
 # PGBOUNCER
 #------------------------------------------------------------------------------
+postgresql_install_pgbouncer: false
 postgresql_pgbouncer_conf_dir: '/etc/pgbouncer/'
 postgresql_pgbouncer_port: 6432
 postgresql_pgbouncer_listen_address: 127.0.0.1
 postgresql_pgbouncer_log_file: '/var/log/postgresql/pgbouncer.log'
 postgresql_pgbouncer_pid_file: '/var/run/postgresql/pgbouncer.pid'
+postgresql_pgbouncer_users: []
+postgresql_pgbouncer_database: '*'
+postgresql_pgbouncer_auth_user: 
+  name: auth_user
+  pass: auth_user
 
 # When server connection is released back to pool:
 #   session      - after client disconnects
@@ -618,3 +624,11 @@ postgresql_pgbouncer_max_client_conn: 800
 # is in use, in session pooling it needs to be the number of
 # max clients you want to handle at any moment
 postgresql_pgbouncer_default_pool_size: 20
+
+postgresql_pgbouncer_pg_hba_default:
+  - { type: local, database: all, user: '{{ postgresql_admin_user }}', address: '', method: '{{ postgresql_default_auth_method }}', comment: '' }
+  - { type: local, database: all, user: all, address: '', method: '{{ postgresql_default_auth_method }}', comment: '"local" is for Unix domain socket connections only' }
+  - { type: host,  database: all, user: auth_user, address: all, method: trust, comment: 'IPv4 local connections:' }
+  - { type: host,  database: all, user: postgres, address: all, method: trust, comment: 'IPv4 local connections:' }
+  - { type: host,  database: all, user: all, address: '127.0.0.1/32', method: md5, comment: 'IPv4 local connections:' }
+  - { type: host,  database: all, user: all, address: '::1/128', method: md5, comment: 'IPv6 local connections:' }

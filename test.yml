@@ -11,7 +11,6 @@
     - java
     - elasticsearch
   vars:
-    bootstrap_copy_publickey: false
     bootstrap_install_dev_packages: false
     bootstrap_local_sources: false
     bootstrap_locale: es_AR.UTF-8

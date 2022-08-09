@@ -6,17 +6,10 @@
       update_cache=yes
     vars:
       packages:
-        - libsqlite3-dev
-        - python-apt-common
-        - python-dev
         - python3-dev
         - python3-pip
-        - software-properties-common
         - python3-virtualenv
-        - virtualenv
-        - python-setuptools
         - python3-setuptools
-        - sqlite3
     when: ansible_distribution == 'Ubuntu'
 
   - name: Check python version installed
@@ -38,19 +31,3 @@
   - import_tasks: manual-pip-install.yml
     when: setup['ansible_facts']['ansible_python_version'].split(".")[0] == "3" and setup['ansible_facts']['ansible_python_version'].split(".")[1] == "5"
 
-  - name: Adding WORKON_HOME environment variable
-    lineinfile:
-      dest=/home/{{ bootstrap_usuario_remoto }}/.bashrc
-      line="export WORKON_HOME=~/{{ bootstrap_virtualenv_workon_home }}"
-      state=present
-      create=yes
-    become: yes
-    become_user: "{{ bootstrap_usuario_remoto }}"
-
-  - name: Creating virtualenv directory
-    file:
-      path=/home/{{ bootstrap_usuario_remoto }}/{{ bootstrap_virtualenv_workon_home }}
-      state=directory
-      owner={{ bootstrap_usuario_remoto }}
-    become: yes
-    become_user: "{{ bootstrap_usuario_remoto }}"
